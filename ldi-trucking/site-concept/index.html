@@ -2,339 +2,353 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LDI Trucking Concept</title>
 <meta name="description" content="Website and automation concept prepared for LDI Trucking Inc. by Anthony Mendez. Not the official LDI Trucking website.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* =====================================================================
+     Design tokens
+     Brand colors: navy + safety orange. If LDI's logo uses different
+     colors, swap the --navy-* and --orange-* values and everything follows.
+     Contrast (WCAG 2.2) noted where it matters.
+     ===================================================================== */
   :root {
-    --navy: #0d2238;
-    --navy-2: #15314f;
-    --navy-3: #21456c;
-    --ink: #15212d;
-    --muted: #566575;
-    --line: #dbe2ea;
+    --navy-950: #08182a;
+    --navy-900: #0b1f33;
+    --navy-800: #13304d;
+    --navy-700: #1d4268;
+    --orange-500: #f26a1b;      /* signal orange: decoration only, never text on white */
+    --orange-700: #c2410c;      /* CTA fill: white text 5.2:1 */
+    --orange-800: #9a3412;      /* CTA hover */
+    --orange-50: #fff1e8;
+    --orange-ink: #b5480c;      /* orange text on white 5.4:1 */
+    --orange-on-dark: #ff9a5c;  /* orange text on navy 8.0:1 */
+
+    --ink: #0f1b2a;
+    --muted: #4b5a6a;           /* 6.2:1 on white and warm */
+    --line: #dde3ea;
     --bg: #ffffff;
-    --soft: #f3f6f9;
-    --accent: #e5671b;
-    --accent-2: #c4520e;
-    --accent-soft: #fdeee4;
-    --auto: #5a46d6;
+    --warm: #f6f4f0;            /* warm "concrete" neutral for alternating sections */
+    --on-dark: #ffffff;
+    --on-dark-muted: #b8c7d6;   /* 7.8:1 on navy-800 */
+    --ok: #1d7f55;
+
+    --auto: #5a46d6;            /* automation annotation layer, not part of the brand */
     --auto-ink: #3d2db0;
     --auto-soft: #f3f1ff;
     --auto-line: #d3ccfb;
-    --ok: #1d7f55;
-    --radius: 12px;
-    --shadow: 0 1px 2px rgba(13, 34, 56, .06), 0 8px 24px rgba(13, 34, 56, .08);
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* 8px spacing grid */
+    --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px;
+    --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+    --shadow: 0 1px 2px rgba(11, 31, 51, .06), 0 8px 24px rgba(11, 31, 51, .08);
+    --shadow-lg: 0 24px 48px rgba(8, 24, 42, .28);
+
+    --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-display: "Barlow Semi Condensed", "Barlow", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   }
+
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font: 16px/1.55 var(--font);
+    font: 400 17px/1.6 var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; }
-  img, svg { max-width: 100%; }
-  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
-  @media (min-width: 720px) { .wrap { padding: 0 28px; } }
+  svg { max-width: 100%; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--s2); }
+  @media (min-width: 720px) { .wrap { padding: 0 var(--s4); } }
 
-  h1, h2, h3 { line-height: 1.15; letter-spacing: -0.01em; margin: 0; }
-  h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); }
-  h3 { font-size: 1.1rem; }
+  h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.005em; }
+  h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); line-height: 1.08; }
+  h3 { font-size: 1.3rem; line-height: 1.2; }
   p { margin: 0; }
-  .eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-  .lede { color: var(--muted); font-size: 1.05rem; max-width: 62ch; }
-  .section { padding: 72px 0; }
-  .section-head { display: grid; gap: 10px; margin-bottom: 32px; }
-  .fine { font-size: .78rem; color: var(--muted); }
+  .eyebrow { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange-ink); }
+  .on-dark .eyebrow { color: var(--orange-on-dark); }
+  .lede { color: var(--muted); font-size: 1.1rem; max-width: 60ch; }
+  .on-dark .lede { color: var(--on-dark-muted); }
+  .section { padding: var(--s6) 0; }
+  @media (min-width: 900px) { .section { padding: var(--s7) 0; } }
+  .section.warm { background: var(--warm); }
+  .section-head { display: grid; gap: var(--s1); margin-bottom: var(--s5); max-width: 760px; }
+  .fine { font-size: .8rem; color: var(--muted); }
 
-  /* ---------- Concept bar (not part of the proposed site) ---------- */
-  .concept-bar {
-    background: var(--auto-ink);
-    color: #fff;
-    font-size: .85rem;
-  }
-  .concept-bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 9px; padding-bottom: 9px; flex-wrap: wrap; }
-  .concept-bar strong { font-weight: 700; }
+  :focus-visible { outline: 3px solid var(--orange-700); outline-offset: 2px; border-radius: 4px; }
+  .on-dark :focus-visible { outline-color: var(--orange-on-dark); }
+
+  /* ---------- Concept bar (explains the page; remove before any real launch) ---------- */
+  .concept-bar { background: var(--auto-ink); color: #fff; font-size: .88rem; }
+  .concept-bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s1) var(--s2); padding-top: var(--s1); padding-bottom: var(--s1); flex-wrap: wrap; }
   .toggle {
     appearance: none; border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.12); color: #fff;
-    font: inherit; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+    font: inherit; font-weight: 600; min-height: 36px; padding: 4px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
   }
   .toggle:hover { background: rgba(255,255,255,.22); }
 
   /* ---------- Header ---------- */
   header.site {
     position: sticky; top: 0; z-index: 20;
-    background: rgba(255,255,255,.96);
-    backdrop-filter: saturate(1.4) blur(8px);
+    background: rgba(255,255,255,.96); backdrop-filter: saturate(1.4) blur(8px);
     border-bottom: 1px solid var(--line);
   }
-  header.site .wrap { display: flex; align-items: center; gap: 24px; height: 68px; }
+  header.site .wrap { display: flex; align-items: center; gap: var(--s3); height: 72px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .logo-mark {
-    width: 40px; height: 40px; border-radius: 8px; background: var(--navy); color: #fff;
-    display: grid; place-items: center; font-weight: 800; font-size: .95rem; letter-spacing: .02em;
-    box-shadow: inset 0 -4px 0 var(--accent);
+    width: 44px; height: 44px; border-radius: var(--r-sm); background: var(--navy-900); color: #fff;
+    display: grid; place-items: center; font: 800 1.05rem/1 var(--font-display); letter-spacing: .02em;
+    box-shadow: inset 0 -5px 0 var(--orange-500);
   }
-  .logo-text { font-weight: 800; font-size: 1.1rem; color: var(--navy); line-height: 1; }
-  .logo-text small { display: block; font-weight: 600; font-size: .68rem; letter-spacing: .12em; color: var(--muted); margin-top: 3px; }
-  nav.main { display: none; gap: 22px; font-size: .93rem; font-weight: 600; }
-  nav.main a { text-decoration: none; color: var(--ink); }
-  nav.main a:hover { color: var(--accent-2); }
-  .header-cta { margin-left: auto; display: flex; align-items: center; gap: 14px; }
-  .phone { display: none; font-weight: 700; text-decoration: none; color: var(--navy); font-size: .95rem; }
-  @media (min-width: 1000px) { nav.main { display: flex; } .phone { display: inline; } }
+  .logo-text { font: 700 1.2rem/1 var(--font-display); color: var(--navy-900); }
+  .logo-text small { display: block; font: 600 .68rem/1 var(--font-body); letter-spacing: .14em; color: var(--muted); margin-top: 4px; }
+  nav.main { display: none; gap: var(--s3); font-weight: 600; font-size: .98rem; }
+  nav.main a { text-decoration: none; color: var(--ink); padding: 8px 0; }
+  nav.main a:hover { color: var(--orange-ink); }
+  .header-cta { margin-left: auto; display: flex; align-items: center; gap: var(--s2); }
+  .phone { display: none; font-weight: 700; text-decoration: none; color: var(--navy-900); }
+  @media (min-width: 1080px) { nav.main { display: flex; } .phone { display: inline; } }
 
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    font: inherit; font-weight: 700; font-size: .95rem; line-height: 1;
-    padding: 13px 20px; border-radius: 10px; border: 2px solid transparent;
-    text-decoration: none; cursor: pointer; white-space: nowrap;
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s1);
+    font: 600 1.02rem/1 var(--font-body); min-height: 48px; padding: 0 var(--s3); border-radius: 10px;
+    border: 2px solid transparent; text-decoration: none; cursor: pointer; white-space: nowrap;
+    transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
   }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent-2); }
-  .btn-ghost { border-color: rgba(255,255,255,.55); color: #fff; background: transparent; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--orange-700); color: #fff; }
+  .btn-primary:hover { background: var(--orange-800); }
+  .btn-ghost { border-color: rgba(255,255,255,.6); color: #fff; background: transparent; }
   .btn-ghost:hover { background: rgba(255,255,255,.1); }
-  .btn-outline { border-color: var(--navy); color: var(--navy); background: #fff; }
-  .btn-outline:hover { background: var(--soft); }
-  .btn-sm { padding: 10px 14px; font-size: .88rem; }
+  .btn-outline { border-color: var(--navy-900); color: var(--navy-900); background: #fff; }
+  .btn-outline:hover { background: var(--warm); }
+  .btn-sm { min-height: 44px; padding: 0 var(--s2); font-size: .95rem; }
 
   /* ---------- Hero ---------- */
   .hero {
     background:
-      radial-gradient(1200px 500px at 85% -10%, rgba(229,103,27,.22), transparent 60%),
-      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
-    color: #fff;
-    overflow: hidden;
+      radial-gradient(900px 420px at 88% -8%, rgba(242,106,27,.20), transparent 60%),
+      linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 100%);
+    color: #fff; overflow: hidden;
   }
-  .hero .wrap { display: grid; gap: 40px; padding-top: 64px; padding-bottom: 40px; align-items: center; }
-  @media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.2fr 1fr; padding-top: 88px; } }
-  .hero .wrap.hero-bottom { display: block; padding-top: 0; }
-  .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; }
-  .hero h1 span { color: #ffb184; }
-  .hero p.sub { color: #c9d6e4; font-size: 1.12rem; margin-top: 18px; max-width: 54ch; }
-  .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .hero .eyebrow { color: #ffb184; margin-bottom: 14px; display: block; }
+  .hero .wrap { display: grid; gap: var(--s5); padding-top: var(--s6); align-items: center; }
+  @media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.15fr 1fr; padding-top: var(--s7); } }
+  .hero .wrap.hero-bottom { display: block; padding-top: var(--s5); padding-bottom: var(--s6); }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.0; font-weight: 800; }
+  .hero h1 span { color: var(--orange-on-dark); }
+  .hero .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: var(--s2); }
+  .hero .eyebrow::before { content: ""; width: 28px; height: 3px; background: var(--orange-500); border-radius: 2px; }
+  .hero p.sub { color: var(--on-dark-muted); font-size: 1.18rem; margin-top: var(--s3); max-width: 52ch; }
+  .hero .ctas { display: flex; gap: var(--s2); flex-wrap: wrap; margin-top: var(--s4); }
   .truck { width: 100%; height: auto; display: block; }
 
   .stats {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
-    background: rgba(255,255,255,.14); border-radius: var(--radius); overflow: hidden;
-    margin-top: 8px;
+    background: rgba(255,255,255,.14); border-radius: var(--r-md); overflow: hidden;
   }
   @media (min-width: 760px) { .stats { grid-template-columns: repeat(4, 1fr); } }
-  .stat { background: var(--navy-2); padding: 18px 20px; }
-  .stat b { display: block; font-size: 1.45rem; font-weight: 800; color: #fff; }
-  .stat span { color: #aebfd1; font-size: .86rem; }
-  .hero .fine { color: #8ea3b9; padding: 12px 0 0; }
-  .hero-bottom { padding-bottom: 56px; }
+  .stat { background: var(--navy-800); padding: var(--s3); }
+  .stat b { display: block; font: 800 1.9rem/1.1 var(--font-display); color: #fff; }
+  .stat span { color: var(--on-dark-muted); font-size: .92rem; }
+  .hero .fine { color: var(--on-dark-muted); padding-top: var(--s2); }
 
   /* ---------- Automation notes (annotation layer) ---------- */
   .auto {
-    border: 1px dashed var(--auto-line);
-    background: var(--auto-soft);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    color: #2c2550;
-    font-size: .92rem;
-    position: relative;
+    border: 1px dashed var(--auto-line); background: var(--auto-soft); border-radius: var(--r-md);
+    padding: var(--s2) var(--s3); color: #2c2550; font-size: .95rem;
   }
-  .auto + .auto { margin-top: 12px; }
-  .auto .auto-tag {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--auto);
-    margin-bottom: 6px;
-  }
-  .auto .auto-tag svg { width: 14px; height: 14px; }
-  .auto h4 { margin: 0 0 4px; font-size: .98rem; color: var(--auto-ink); }
+  .auto-tag { display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--auto); margin-bottom: 4px; }
+  .auto-tag svg { width: 14px; height: 14px; }
+  .auto h4 { margin: 0 0 4px; font-size: 1.08rem; color: var(--auto-ink); font-weight: 700; }
   .auto p + p { margin-top: 6px; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .chip { font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #fff; border: 1px solid var(--auto-line); color: var(--auto-ink); }
-  .on-dark .auto { background: rgba(243,241,255,.96); }
+  .chip { font-size: .75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid var(--auto-line); color: var(--auto-ink); }
+  .on-dark .auto { background: rgba(243,241,255,.97); }
   body.hide-auto .auto { display: none; }
-  .auto-row { margin-top: 24px; display: grid; gap: 12px; }
-  .auto-row .auto + .auto { margin-top: 0; }
+  .auto-row { margin-top: var(--s4); display: grid; gap: var(--s2); }
   @media (min-width: 900px) { .auto-row.two { grid-template-columns: 1fr 1fr; } }
 
-  /* ---------- Cards / grids ---------- */
-  .grid { display: grid; gap: 18px; }
-  @media (min-width: 640px) { .grid.g2 { grid-template-columns: 1fr 1fr; } .grid.g4 { grid-template-columns: 1fr 1fr; } .grid.g3 { grid-template-columns: 1fr 1fr; } }
+  /* ---------- Cards ---------- */
+  .grid { display: grid; gap: var(--s3); }
+  @media (min-width: 640px) { .grid.g2, .grid.g3, .grid.g4 { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1000px) { .grid.g4 { grid-template-columns: repeat(4, 1fr); } .grid.g3 { grid-template-columns: repeat(3, 1fr); } }
-  .card {
-    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 22px; box-shadow: var(--shadow);
-  }
-  .card h3 { margin: 12px 0 6px; }
-  .card p { color: var(--muted); font-size: .95rem; }
-  .icon {
-    width: 44px; height: 44px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-2);
-    display: grid; place-items: center;
-  }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s3); box-shadow: var(--shadow); }
+  .card h3 { margin: var(--s2) 0 var(--s1); color: var(--navy-900); }
+  .card p { color: var(--muted); }
+  .icon { width: 48px; height: 48px; border-radius: 10px; background: var(--orange-50); color: var(--orange-ink); display: grid; place-items: center; flex: 0 0 48px; }
   .icon svg { width: 24px; height: 24px; }
 
-  /* lane graphic */
-  .lanes {
-    margin-top: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--soft);
-    padding: 22px 20px 18px;
-  }
-  .lanes-title { font-weight: 700; font-size: .9rem; color: var(--navy); margin-bottom: 18px; }
-  .lane { display: flex; align-items: flex-start; }
-  .node { flex: 0 0 auto; display: grid; justify-items: center; text-align: center; gap: 8px; width: 110px; }
-  .dot { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--navy); }
-  .dot.hq { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
-  .node b { font-size: .88rem; color: var(--navy); line-height: 1.2; }
-  .node span { font-size: .75rem; color: var(--muted); }
-  .seg { flex: 1 1 auto; position: relative; height: 18px; display: grid; place-items: center; }
-  .seg::before { content: ""; position: absolute; left: -6px; right: -6px; top: 8px; border-top: 3px dashed var(--navy-3); }
-  .seg em { position: relative; top: 18px; font-style: normal; font-size: .72rem; font-weight: 700; color: var(--muted); background: var(--soft); padding: 0 6px; }
-  @media (max-width: 559px) {
-    .lane { flex-direction: column; }
-    .node { width: auto; grid-template-columns: 18px 1fr; justify-items: start; align-items: center; text-align: left; column-gap: 12px; row-gap: 0; }
-    .node .dot { grid-row: span 2; }
-    .seg { flex: 0 0 auto; width: 18px; height: 40px; }
-    .seg::before { left: 7px; right: auto; top: -2px; bottom: -2px; border-top: 0; border-left: 3px dashed var(--navy-3); }
-    .seg em { position: absolute; top: 11px; left: 30px; white-space: nowrap; padding: 0; }
-  }
+  /* ---------- Yards map ---------- */
+  .yards-wrap { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s3); box-shadow: var(--shadow); }
+  .yard-map { display: none; width: 100%; height: auto; }
+  .yard-map text { font-family: var(--font-body); }
+  .yard-list { display: grid; gap: var(--s2); }
+  .yard-group b { display: block; font: 700 .78rem/1.2 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .yard-group div { display: flex; flex-wrap: wrap; gap: 6px; }
+  .yard-chip { font-weight: 600; font-size: .95rem; padding: 6px 12px; border-radius: 999px; background: var(--warm); border: 1px solid var(--line); color: var(--navy-900); }
+  .yard-chip.hq { background: var(--orange-50); border-color: #f7c9aa; color: var(--orange-ink); }
+  @media (min-width: 640px) { .yard-map { display: block; } .yard-list { display: none; } }
 
   /* ---------- Forms ---------- */
-  form { display: grid; gap: 12px; }
-  .row { display: grid; gap: 12px; }
+  form { display: grid; gap: var(--s2); }
+  .row { display: grid; gap: var(--s2); }
   @media (min-width: 520px) { .row.r2 { grid-template-columns: 1fr 1fr; } }
-  label { display: grid; gap: 5px; font-size: .82rem; font-weight: 700; color: var(--navy); }
+  label { display: grid; gap: 6px; font-size: .88rem; font-weight: 600; color: var(--navy-900); }
   input, select, textarea {
-    font: inherit; font-size: .95rem; font-weight: 400; color: var(--ink);
-    padding: 11px 12px; border-radius: 8px; border: 1px solid #c6d0db; background: #fff; width: 100%;
+    font: 400 1rem/1.4 var(--font-body); color: var(--ink);
+    min-height: 48px; padding: 10px 12px; border-radius: var(--r-sm); border: 1px solid #b9c4d0; background: #fff; width: 100%;
   }
-  input:focus, select:focus, textarea:focus { outline: 3px solid rgba(229,103,27,.25); border-color: var(--accent); }
-  .checks { display: flex; flex-wrap: wrap; gap: 8px 16px; font-weight: 500; font-size: .9rem; color: var(--ink); }
-  .checks label { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; font-size: .9rem; color: var(--ink); }
-  .checks input { width: auto; }
-  .form-msg { display: none; font-size: .88rem; border-radius: 8px; padding: 10px 12px; background: #e9f7f0; color: var(--ok); font-weight: 600; }
+  textarea { min-height: 96px; }
+  input:focus, select:focus, textarea:focus { outline: 3px solid rgba(194,65,12,.28); outline-offset: 0; border-color: var(--orange-700); }
+  .checks { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3); }
+  .checks label { display: inline-flex; align-items: center; gap: var(--s1); font-weight: 500; font-size: .98rem; color: var(--ink); min-height: 32px; }
+  .checks input { width: 20px; height: 20px; min-height: 0; accent-color: var(--orange-700); }
+  .group-label { font-size: .88rem; font-weight: 600; color: var(--navy-900); margin-bottom: 4px; }
+  .form-msg { display: none; font-size: .92rem; border-radius: var(--r-sm); padding: 10px 12px; background: #e9f7f0; color: var(--ok); font-weight: 600; }
   .form-msg.show { display: block; }
 
-  /* ---------- Shipper section ---------- */
-  .ship-grid { display: grid; gap: 20px; align-items: start; }
+  /* ---------- Shippers ---------- */
+  .ship-grid { display: grid; gap: var(--s3); align-items: start; }
   @media (min-width: 900px) { .ship-grid { grid-template-columns: 1.25fr 1fr; } }
-  .stack { display: grid; gap: 20px; }
-  .doc-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .stack { display: grid; gap: var(--s3); }
+  .doc-btns { display: flex; flex-wrap: wrap; gap: var(--s1); margin-top: var(--s2); }
 
   /* ---------- Drivers ---------- */
-  .drivers { background: var(--navy); color: #fff; }
-  .drivers .lede { color: #c2d0df; }
-  .drivers .eyebrow { color: #ffb184; }
-  .drive-grid { display: grid; gap: 20px; align-items: start; }
-  @media (min-width: 900px) { .drive-grid { grid-template-columns: 1fr 1fr; } }
-  .job {
-    background: var(--navy-2); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 24px;
-  }
-  .job h3 { font-size: 1.25rem; }
-  .job .where { color: #aebfd1; font-size: .9rem; margin-top: 4px; }
-  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
-  .badge { font-size: .8rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.1); color: #fff; }
-  .pay { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.12); padding-top: 16px; }
-  .pay b { display: block; font-size: 1.5rem; color: #ffb184; }
-  .pay span { font-size: .82rem; color: #aebfd1; }
-  .job.small { padding: 18px 24px; margin-top: 14px; }
-  .job.small p { color: #c2d0df; font-size: .92rem; }
-  .apply-card { background: #fff; color: var(--ink); border-radius: var(--radius); padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,.25); }
-  .apply-card h3 { font-size: 1.25rem; color: var(--navy); }
-  .apply-card > p { color: var(--muted); font-size: .92rem; margin: 6px 0 16px; }
-  .steps { display: grid; gap: 10px; margin-top: 22px; counter-reset: step; }
+  .drivers { background: var(--navy-900); color: #fff; }
+  .promises { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin-bottom: var(--s5); }
+  @media (min-width: 900px) { .promises { grid-template-columns: repeat(4, 1fr); } }
+  .promise { display: flex; align-items: center; gap: var(--s2); background: var(--navy-800); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r-md); padding: var(--s2) var(--s3); }
+  .promise svg { width: 28px; height: 28px; color: var(--orange-on-dark); flex: 0 0 28px; }
+  .promise b { font: 700 1.2rem/1.15 var(--font-display); }
+  .drive-grid { display: grid; gap: var(--s3); align-items: start; }
+  @media (min-width: 960px) { .drive-grid { grid-template-columns: 1.05fr 1fr; } }
+  .dark-card { background: var(--navy-800); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r-md); padding: var(--s3); }
+  .dark-card + .dark-card { margin-top: var(--s2); }
+  .dark-card h3 { font-size: 1.35rem; }
+  .dark-card .where { color: var(--on-dark-muted); margin-top: 4px; }
+  .badges { display: flex; flex-wrap: wrap; gap: var(--s1); margin: var(--s2) 0; }
+  .badge { font-size: .85rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.1); color: #fff; }
+  .pay { display: flex; gap: var(--s4); flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.12); padding-top: var(--s2); }
+  .pay b { display: block; font: 800 1.7rem/1.1 var(--font-display); color: var(--orange-on-dark); }
+  .pay span { font-size: .88rem; color: var(--on-dark-muted); }
+  .lists { display: grid; gap: var(--s3); }
+  @media (min-width: 560px) { .lists { grid-template-columns: 1fr 1fr; } }
+  .checklist { list-style: none; margin: var(--s2) 0 0; padding: 0; display: grid; gap: 10px; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; color: #e7eef5; }
+  .checklist svg { width: 20px; height: 20px; flex: 0 0 20px; color: var(--orange-on-dark); margin-top: 3px; }
+  .apply-card { background: #fff; color: var(--ink); border-radius: var(--r-lg); padding: var(--s4) var(--s3); box-shadow: var(--shadow-lg); }
+  @media (min-width: 960px) { .apply-card { position: sticky; top: 96px; } }
+  .apply-card h3 { font-size: 1.6rem; color: var(--navy-900); }
+  .apply-card > p { color: var(--muted); margin: 6px 0 var(--s3); }
+  .apply-card .callout { margin-top: var(--s2); font-size: .95rem; color: var(--muted); text-align: center; }
+  .apply-card .callout a { color: var(--navy-900); font-weight: 700; }
+  .steps { display: grid; gap: var(--s2); margin-top: var(--s4); counter-reset: step; }
   @media (min-width: 640px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-  .step { display: flex; gap: 12px; align-items: flex-start; font-size: .9rem; color: #c2d0df; }
+  .step { display: flex; gap: 12px; align-items: flex-start; color: var(--on-dark-muted); }
   .step::before {
     counter-increment: step; content: counter(step);
-    flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800;
-    display: grid; place-items: center; font-size: .85rem;
+    flex: 0 0 32px; height: 32px; border-radius: 50%; background: var(--orange-700); color: #fff; font-weight: 700;
+    display: grid; place-items: center;
   }
   .step b { color: #fff; display: block; }
 
   /* ---------- Driver hub ---------- */
   .tile {
-    display: flex; gap: 14px; align-items: flex-start; text-decoration: none;
-    background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+    display: flex; gap: var(--s2); align-items: flex-start; text-decoration: none;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s3); box-shadow: var(--shadow);
+    transition: border-color .15s ease, transform .15s ease;
   }
-  .tile:hover { border-color: var(--accent); }
-  .tile b { display: block; color: var(--navy); }
-  .tile span { color: var(--muted); font-size: .88rem; }
-  .tile .icon { flex: 0 0 44px; }
+  .tile:hover { border-color: var(--orange-700); transform: translateY(-2px); }
+  .tile b { display: block; color: var(--navy-900); font-size: 1.05rem; }
+  .tile span span { color: var(--muted); font-size: .95rem; }
 
   /* ---------- Safety ---------- */
-  .safety { background: var(--soft); }
-  .safety-grid { display: grid; gap: 24px; align-items: start; }
+  .safety-grid { display: grid; gap: var(--s4); align-items: start; }
   @media (min-width: 900px) { .safety-grid { grid-template-columns: 1fr 1.1fr; } }
-  .creds { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
-  .creds li { background: #fff; display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; font-size: .95rem; }
+  .creds { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); }
+  .creds li { background: #fff; display: flex; justify-content: space-between; gap: var(--s2); padding: var(--s2) var(--s3); }
   .creds li span { color: var(--muted); }
-  .creds li b { color: var(--navy); text-align: right; }
+  .creds li b { color: var(--navy-900); text-align: right; }
   .creds li b.good { color: var(--ok); }
 
   /* ---------- Contact ---------- */
-  .contact-grid { display: grid; gap: 20px; align-items: start; }
+  .contact-grid { display: grid; gap: var(--s3); align-items: start; }
   @media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr 1.2fr; } }
-  .terminal h3 { color: var(--navy); }
-  .terminal p { color: var(--ink); font-size: .95rem; margin-top: 8px; }
-  .terminal .tag { display: inline-block; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); background: var(--accent-soft); padding: 3px 8px; border-radius: 6px; }
+  .terminal p { color: var(--ink); margin-top: var(--s1); }
+  .tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--orange-ink); background: var(--orange-50); padding: 4px 10px; border-radius: 6px; }
 
-  footer.site { background: var(--navy); color: #aebfd1; font-size: .88rem; }
-  footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 28px; padding-bottom: 28px; }
+  footer.site { background: var(--navy-950); color: var(--on-dark-muted); font-size: .92rem; }
+  footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s3); padding-top: var(--s4); padding-bottom: var(--s4); }
   footer.site a { color: #fff; text-decoration: none; }
-  footer.site nav { display: flex; gap: 18px; flex-wrap: wrap; }
+  footer.site nav { display: flex; gap: var(--s3); flex-wrap: wrap; }
+
+  /* ---------- Mobile action bar (call / apply always in thumb reach) ---------- */
+  .mobile-bar { display: none; }
+  @media (max-width: 719px) {
+    .mobile-bar {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--s1);
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+      padding: var(--s1) var(--s2) calc(var(--s1) + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.97); border-top: 1px solid var(--line); box-shadow: 0 -8px 24px rgba(11,31,51,.1);
+    }
+    body { padding-bottom: 72px; }
+    html { scroll-padding-bottom: 80px; }
+  }
 
   /* ---------- Roadmap appendix ---------- */
   .appendix { background: #faf9ff; border-top: 6px solid var(--auto); }
   .appendix .eyebrow { color: var(--auto); }
-  .appendix-label {
-    display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-    background: var(--auto); color: #fff; padding: 4px 10px; border-radius: 6px; margin-bottom: 14px;
-  }
-  .table-wrap { overflow-x: auto; border: 1px solid var(--auto-line); border-radius: var(--radius); background: #fff; }
-  table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: .9rem; }
-  th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid #ebe8fb; }
-  th { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--auto-ink); background: var(--auto-soft); }
+  .appendix-label { display: inline-block; font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--auto); color: #fff; padding: 4px 10px; border-radius: 6px; margin-bottom: var(--s2); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--auto-line); border-radius: var(--r-md); background: #fff; }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 12px var(--s2); border-bottom: 1px solid #ebe8fb; }
+  th { font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--auto-ink); background: var(--auto-soft); }
   tr:last-child td { border-bottom: 0; }
-  td b { color: var(--navy); }
-  td .dept { font-weight: 800; color: var(--auto-ink); white-space: nowrap; }
-  .effort { white-space: nowrap; font-weight: 700; color: var(--navy); }
-  .prio { display: inline-block; font-size: .7rem; font-weight: 800; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-2); margin-left: 4px; }
-
-  .phases { display: grid; gap: 16px; margin-top: 18px; }
+  td b { color: var(--navy-900); }
+  .dept { font-weight: 700; color: var(--auto-ink); white-space: nowrap; }
+  .effort { white-space: nowrap; font-weight: 700; color: var(--navy-900); }
+  .prio { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--orange-50); color: var(--orange-ink); margin-left: 4px; }
+  .phases { display: grid; gap: var(--s2); margin-top: var(--s2); }
   @media (min-width: 760px) { .phases { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1100px) { .phases { grid-template-columns: repeat(4, 1fr); } }
-  .phase { background: #fff; border: 1px solid var(--auto-line); border-radius: var(--radius); padding: 18px; }
-  .phase .when { font-size: .74rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--auto); }
-  .phase h3 { margin: 6px 0 8px; color: var(--navy); }
-  .phase ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .9rem; display: grid; gap: 5px; }
-
-  .calc { display: grid; gap: 20px; background: #fff; border: 1px solid var(--auto-line); border-radius: var(--radius); padding: 22px; }
+  .phase { background: #fff; border: 1px solid var(--auto-line); border-radius: var(--r-md); padding: var(--s3); }
+  .phase .when { font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--auto); }
+  .phase h3 { margin: 6px 0 var(--s1); color: var(--navy-900); }
+  .phase ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .95rem; display: grid; gap: 6px; }
+  .calc { display: grid; gap: var(--s3); background: #fff; border: 1px solid var(--auto-line); border-radius: var(--r-md); padding: var(--s3); }
   @media (min-width: 900px) { .calc { grid-template-columns: 1.3fr 1fr; align-items: center; } }
-  .calc-inputs { display: grid; gap: 12px; }
+  .calc-inputs { display: grid; gap: var(--s2); }
   @media (min-width: 560px) { .calc-inputs { grid-template-columns: 1fr 1fr; } }
-  .calc-out { background: var(--navy); color: #fff; border-radius: var(--radius); padding: 22px; display: grid; gap: 14px; }
-  .calc-out div b { display: block; font-size: 2rem; font-weight: 800; color: #ffb184; line-height: 1.1; }
-  .calc-out div span { font-size: .85rem; color: #c2d0df; }
-
-  .two-col { display: grid; gap: 20px; margin-top: 18px; }
+  .calc-out { background: var(--navy-900); color: #fff; border-radius: var(--r-md); padding: var(--s3); display: grid; gap: var(--s2); }
+  .calc-out b { display: block; font: 800 2.2rem/1.05 var(--font-display); color: var(--orange-on-dark); }
+  .calc-out span { font-size: .9rem; color: var(--on-dark-muted); }
+  .two-col { display: grid; gap: var(--s3); margin-top: var(--s3); }
   @media (min-width: 900px) { .two-col { grid-template-columns: 1fr 1fr; } }
-  .panel { background: #fff; border: 1px solid var(--auto-line); border-radius: var(--radius); padding: 22px; }
-  .panel h3 { color: var(--navy); margin-bottom: 10px; }
-  .panel ul { margin: 0; padding-left: 18px; display: grid; gap: 7px; font-size: .94rem; }
-  .prepared { margin-top: 28px; font-size: .9rem; color: var(--muted); }
+  .panel { background: #fff; border: 1px solid var(--auto-line); border-radius: var(--r-md); padding: var(--s3); }
+  .panel h3 { color: var(--navy-900); margin-bottom: 10px; }
+  .panel ul { margin: 0; padding-left: 18px; display: grid; gap: var(--s1); }
+  .prepared { margin-top: var(--s4); color: var(--muted); }
   .prepared a { color: var(--auto-ink); font-weight: 700; }
-  .sub-h { margin: 44px 0 6px; font-size: 1.3rem; color: var(--navy); }
+  .sub-h { margin: var(--s5) 0 6px; font-size: 1.6rem; color: var(--navy-900); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; }
+  }
 
   /* ---------- Print / PDF ---------- */
   @media print {
     @page { size: Letter; }
-    body { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding-bottom: 0; }
     header.site { position: static; }
-    .toggle { display: none; }
-    .section { padding: 36px 0; }
-    .card, .tile, .auto, .job, .apply-card, .phase, .panel, .calc, .lanes, tr { break-inside: avoid; }
-    .hero .wrap { padding-top: 40px; }
+    .toggle, .mobile-bar { display: none !important; }
+    .apply-card { position: static; }
+    .section { padding: var(--s5) 0; }
+    .card, .tile, .auto, .dark-card, .apply-card, .phase, .panel, .calc, .yards-wrap, .promise, tr { break-inside: avoid; }
     .appendix { break-before: page; }
     .sub-h { break-after: avoid; }
     table { min-width: 0; }
@@ -344,7 +358,7 @@
 </head>
 <body>
 
-<!-- Inline icon sprites -->
+<!-- Icon sprites -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
   <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></symbol>
@@ -358,6 +372,10 @@
   <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
   <symbol id="i-hazmat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 22 12 12 22 2 12z"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
 </svg>
 
 <!-- Concept bar: explains what this page is. Remove before any real launch. -->
@@ -372,19 +390,19 @@
   <div class="wrap">
     <a class="logo" href="#top" aria-label="LDI Trucking home">
       <span class="logo-mark">LDI</span>
-      <span class="logo-text">LDI Trucking<small>POMONA · PHOENIX</small></span>
+      <span class="logo-text">LDI Trucking<small>FAMILY OWNED · 40+ YEARS</small></span>
     </a>
     <nav class="main" aria-label="Main">
       <a href="#services">Services</a>
-      <a href="#shippers">Shippers</a>
+      <a href="#shippers">Get a quote</a>
+      <a href="#yards">Yards</a>
       <a href="#drive">Drive for LDI</a>
       <a href="#hub">Driver Hub</a>
       <a href="#safety">Safety</a>
-      <a href="#contact">Contact</a>
     </nav>
     <div class="header-cta">
       <a class="phone" href="tel:+19096207001">(909) 620-7001</a>
-      <a class="btn btn-primary btn-sm" href="#drive">Apply to drive</a>
+      <a class="btn btn-primary btn-sm" href="#apply">Apply to drive</a>
     </div>
   </div>
 </header>
@@ -395,11 +413,11 @@
   <section class="hero on-dark">
     <div class="wrap">
       <div>
-        <span class="eyebrow">Asset-based carrier · Pomona, CA &amp; Phoenix, AZ</span>
+        <span class="eyebrow">Family owned &amp; operated for 40+ years</span>
         <h1>Our trucks.<br>Our drivers.<br><span>Your freight, on time.</span></h1>
-        <p class="sub">LDI Trucking moves dry van and container freight across Southern California and Arizona with a company-owned fleet run out of Pomona and Phoenix. One dispatch team, one phone number, every load.</p>
+        <p class="sub">LDI Trucking moves dry van and container freight from 11 yards across California and Arizona, with our own trucks and our own drivers. One dispatch team, one phone number, every load.</p>
         <div class="ctas">
-          <a class="btn btn-primary" href="#shippers">Request a quote</a>
+          <a class="btn btn-primary" href="#shippers">Get a quote</a>
           <a class="btn btn-ghost" href="#drive">Drive for LDI &rarr;</a>
         </div>
       </div>
@@ -408,18 +426,18 @@
           <line x1="0" y1="80" x2="22" y2="80"/><line x1="4" y1="110" x2="34" y2="110"/><line x1="10" y1="140" x2="28" y2="140"/>
         </g>
         <rect x="44" y="34" width="300" height="128" rx="7" fill="#ffffff"/>
-        <rect x="44" y="146" width="300" height="10" fill="#e5671b"/>
-        <text x="74" y="112" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#0d2238">LDI</text>
-        <text x="206" y="112" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="#e5671b">TRUCKING</text>
-        <rect x="44" y="162" width="300" height="9" fill="#0a1a2b"/>
-        <rect x="120" y="171" width="7" height="22" fill="#0a1a2b"/>
+        <rect x="44" y="146" width="300" height="10" fill="#f26a1b"/>
+        <text x="72" y="114" font-family="'Barlow Semi Condensed', Arial, sans-serif" font-weight="800" font-size="72" fill="#0b1f33">LDI</text>
+        <text x="196" y="112" font-family="'Barlow Semi Condensed', Arial, sans-serif" font-weight="700" font-size="24" letter-spacing="3" fill="#c2410c">TRUCKING</text>
+        <rect x="44" y="162" width="300" height="9" fill="#08182a"/>
+        <rect x="120" y="171" width="7" height="22" fill="#08182a"/>
         <rect x="352" y="22" width="7" height="58" rx="3" fill="#c9d6e4"/>
-        <path d="M350 170 V78 Q350 64 364 64 H420 Q440 64 452 84 L474 124 Q490 130 492 146 V170 Z" fill="#e5671b"/>
-        <path d="M410 76 H430 Q436 76 440 84 L456 114 H410 Z" fill="#0d2238" fill-opacity=".75"/>
-        <rect x="364" y="80" width="34" height="40" rx="3" fill="#ffffff" fill-opacity=".18"/>
+        <path d="M350 170 V78 Q350 64 364 64 H420 Q440 64 452 84 L474 124 Q490 130 492 146 V170 Z" fill="#f26a1b"/>
+        <path d="M410 76 H430 Q436 76 440 84 L456 114 H410 Z" fill="#0b1f33" fill-opacity=".75"/>
+        <rect x="364" y="80" width="34" height="40" rx="3" fill="#ffffff" fill-opacity=".2"/>
         <rect x="474" y="150" width="22" height="12" rx="2" fill="#c9d6e4"/>
-        <rect x="336" y="160" width="160" height="12" fill="#0a1a2b"/>
-        <g fill="#0a1a2b"><circle cx="258" cy="184" r="19"/><circle cx="302" cy="184" r="19"/><circle cx="388" cy="184" r="19"/><circle cx="460" cy="184" r="19"/></g>
+        <rect x="336" y="160" width="160" height="12" fill="#08182a"/>
+        <g fill="#08182a"><circle cx="258" cy="184" r="19"/><circle cx="302" cy="184" r="19"/><circle cx="388" cy="184" r="19"/><circle cx="460" cy="184" r="19"/></g>
         <g fill="#8ea3b9"><circle cx="258" cy="184" r="7"/><circle cx="302" cy="184" r="7"/><circle cx="388" cy="184" r="7"/><circle cx="460" cy="184" r="7"/></g>
         <line x1="0" y1="205" x2="520" y2="205" stroke="#ffffff" stroke-opacity=".25" stroke-width="2"/>
         <g stroke="#ffffff" stroke-opacity=".35" stroke-width="3"><line x1="20" y1="220" x2="70" y2="220"/><line x1="130" y1="220" x2="180" y2="220"/><line x1="240" y1="220" x2="290" y2="220"/><line x1="350" y1="220" x2="400" y2="220"/><line x1="460" y1="220" x2="510" y2="220"/></g>
@@ -427,17 +445,17 @@
     </div>
     <div class="wrap hero-bottom">
       <div class="stats">
-        <div class="stat"><b>~140</b><span>Company tractors</span></div>
+        <div class="stat"><b>40+ years</b><span>Family owned &amp; operated</span></div>
+        <div class="stat"><b>11 yards</b><span>California &amp; Arizona</span></div>
         <div class="stat"><b>Satisfactory</b><span>FMCSA safety rating</span></div>
         <div class="stat"><b>Hazmat</b><span>Certified carrier</span></div>
-        <div class="stat"><b>Since 2008</b><span>Interstate authority · MC-446897</span></div>
       </div>
-      <p class="fine">Figures from public FMCSA records; LDI to confirm before launch. Photo of the real fleet would replace the illustration.</p>
+      <p class="fine">From LDI's current site and public FMCSA records; confirm before launch. A photo of LDI's own fleet would replace the illustration.</p>
       <div class="auto-row">
         <aside class="auto">
           <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
-          <h4>Numbers that never go stale</h4>
-          <p>A weekly scheduled job pulls LDI's carrier record from FMCSA's public QCMobile API (fleet size, safety rating, authority status) and updates this strip automatically. The same data feeds the CSA monitor on the Safety dashboard.</p>
+          <h4>Credentials that never go stale</h4>
+          <p>A weekly scheduled job pulls LDI's carrier record from FMCSA's public QCMobile API (safety rating, authority status, fleet counts) and updates this strip automatically. The same data feeds the CSA monitor on the Safety dashboard.</p>
           <div class="chips"><span class="chip">FMCSA QCMobile API</span><span class="chip">n8n / Power Automate schedule</span></div>
         </aside>
       </div>
@@ -450,13 +468,13 @@
       <div class="section-head">
         <span class="eyebrow">What we haul</span>
         <h2>Full-truckload capacity with one point of contact</h2>
-        <p class="lede">Company drivers in company trucks, so we don't broker your freight to strangers. Draft service copy; LDI to confirm exact services and lanes.</p>
+        <p class="lede">Company drivers in company trucks, so your freight never gets brokered to strangers. Draft service copy; LDI to confirm exact services.</p>
       </div>
       <div class="grid g4">
         <div class="card">
           <div class="icon"><svg><use href="#i-box"/></svg></div>
           <h3>Dry van truckload</h3>
-          <p>53′ dry van, full truckload, general commodities. Live load or drop trailer.</p>
+          <p>53′ dry van, full truckload, general commodities. Mostly drop and hook, live loads when you need them.</p>
         </div>
         <div class="card">
           <div class="icon"><svg><use href="#i-container"/></svg></div>
@@ -474,22 +492,87 @@
           <p>Endorsed drivers and a compliance program for regulated freight.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="lanes" aria-label="Core lanes">
-        <div class="lanes-title">Core lanes (to confirm)</div>
-        <div class="lane">
-          <div class="node"><span class="dot"></span><b>LA / Long Beach</b><span>Ports &amp; rail</span></div>
-          <div class="seg"><em>≈45 mi</em></div>
-          <div class="node"><span class="dot hq"></span><b>Pomona, CA</b><span>Headquarters</span></div>
-          <div class="seg"><em>I-10 · ≈340 mi</em></div>
-          <div class="node"><span class="dot"></span><b>Phoenix, AZ</b><span>Terminal</span></div>
+  <!-- ================= YARDS ================= -->
+  <section class="section warm" id="yards">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our network</span>
+        <h2>11 yards across California and Arizona</h2>
+        <p class="lede">From the Inland Empire through the Coachella Valley to Phoenix, and up the Central Valley to the Bay Area.</p>
+      </div>
+
+      <div class="yards-wrap">
+        <svg class="yard-map" viewBox="0 0 1000 340" role="img" aria-label="Schematic map of LDI yards. I-10 corridor: Pomona (headquarters), Fontana, Indio, Coachella, Blythe, Phoenix. Central Valley: Bakersfield, Visalia, Fresno, Turlock, Crockett.">
+          <text x="40" y="26" font-size="13" font-weight="700" letter-spacing="2.5" fill="#4b5a6a">CALIFORNIA</text>
+          <text x="826" y="26" font-size="13" font-weight="700" letter-spacing="2.5" fill="#4b5a6a">ARIZONA</text>
+          <line x1="806" y1="14" x2="806" y2="330" stroke="#b9c4d0" stroke-width="2" stroke-dasharray="6 6"/>
+
+          <!-- Lines -->
+          <path d="M110 276 V44" stroke="#1d4268" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <path d="M110 276 H906" stroke="#f26a1b" stroke-width="9" stroke-linecap="round" fill="none"/>
+
+          <!-- Central Valley stations -->
+          <g fill="#ffffff" stroke="#1d4268" stroke-width="4">
+            <circle cx="110" cy="228" r="9"/><circle cx="110" cy="184" r="9"/><circle cx="110" cy="140" r="9"/><circle cx="110" cy="96" r="9"/><circle cx="110" cy="52" r="9"/>
+          </g>
+          <g font-size="18" font-weight="600" fill="#0b1f33">
+            <text x="134" y="234">Bakersfield</text><text x="134" y="190">Visalia</text><text x="134" y="146">Fresno</text><text x="134" y="102">Turlock</text><text x="134" y="58">Crockett</text>
+          </g>
+          <text x="226" y="58" font-size="14" fill="#4b5a6a">Bay Area</text>
+
+          <!-- I-10 stations -->
+          <g fill="#ffffff" stroke="#f26a1b" stroke-width="4">
+            <circle cx="262" cy="276" r="9"/><circle cx="436" cy="276" r="9"/><circle cx="560" cy="276" r="9"/><circle cx="716" cy="276" r="9"/>
+          </g>
+          <g font-size="18" font-weight="600" fill="#0b1f33" text-anchor="middle">
+            <text x="262" y="314">Fontana</text><text x="436" y="314">Indio</text><text x="560" y="314">Coachella</text><text x="716" y="314">Blythe</text><text x="906" y="314">Phoenix</text>
+          </g>
+          <circle cx="906" cy="276" r="12" fill="#ffffff" stroke="#0b1f33" stroke-width="5"/>
+
+          <!-- HQ hub -->
+          <circle cx="110" cy="276" r="16" fill="#ffffff" stroke="#0b1f33" stroke-width="6"/>
+          <circle cx="110" cy="276" r="6" fill="#f26a1b"/>
+          <text x="110" y="316" font-size="18" font-weight="700" fill="#0b1f33" text-anchor="middle">Pomona</text>
+          <rect x="84" y="324" width="52" height="16" rx="4" fill="#fff1e8"/>
+          <text x="110" y="336" font-size="11" font-weight="700" letter-spacing="1.5" fill="#b5480c" text-anchor="middle">HQ</text>
+
+          <!-- Legend -->
+          <g transform="translate(470 70)">
+            <line x1="0" y1="0" x2="36" y2="0" stroke="#f26a1b" stroke-width="9" stroke-linecap="round"/>
+            <text x="52" y="6" font-size="16" fill="#0b1f33"><tspan font-weight="700">I-10 corridor</tspan> · Inland Empire to Phoenix</text>
+            <line x1="0" y1="40" x2="36" y2="40" stroke="#1d4268" stroke-width="9" stroke-linecap="round"/>
+            <text x="52" y="46" font-size="16" fill="#0b1f33"><tspan font-weight="700">Central Valley</tspan> · CA-99 to the Bay Area</text>
+            <text x="0" y="92" font-size="14" fill="#4b5a6a">Hiring drivers in California, Arizona and Nevada.</text>
+            <text x="0" y="114" font-size="14" fill="#4b5a6a">Schematic, not to scale.</text>
+          </g>
+        </svg>
+
+        <div class="yard-list">
+          <div class="yard-group"><b>Inland Empire</b><div><span class="yard-chip hq">Pomona · HQ</span><span class="yard-chip">Fontana</span></div></div>
+          <div class="yard-group"><b>Coachella Valley &amp; desert</b><div><span class="yard-chip">Indio</span><span class="yard-chip">Coachella</span><span class="yard-chip">Blythe</span></div></div>
+          <div class="yard-group"><b>Central Valley</b><div><span class="yard-chip">Bakersfield</span><span class="yard-chip">Visalia</span><span class="yard-chip">Fresno</span><span class="yard-chip">Turlock</span></div></div>
+          <div class="yard-group"><b>Bay Area</b><div><span class="yard-chip">Crockett</span></div></div>
+          <div class="yard-group"><b>Arizona</b><div><span class="yard-chip">Phoenix</span></div></div>
+          <p class="fine">Hiring drivers in California, Arizona and Nevada.</p>
         </div>
+      </div>
+
+      <div class="auto-row">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Every report broken out by yard</h4>
+          <p>Eleven yards means eleven places where paperwork piles up. The expiration tracker, document pipeline and management dashboard all report per yard, so each yard lead sees only their own drivers, trucks and missing documents, and management sees all of it in one view.</p>
+          <div class="chips"><span class="chip">Yard field on every record</span><span class="chip">Filtered views per yard lead</span></div>
+        </aside>
       </div>
     </div>
   </section>
 
   <!-- ================= SHIPPERS ================= -->
-  <section class="section" id="shippers" style="padding-top:0">
+  <section class="section" id="shippers">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Ship with LDI</span>
@@ -499,8 +582,8 @@
 
       <div class="ship-grid">
         <div class="card">
-          <h3 style="margin-top:0;color:var(--navy);font-size:1.25rem">Request a quote</h3>
-          <p style="margin:4px 0 16px">Tell us about the load. Dispatch usually replies the same business day.</p>
+          <h3 style="margin-top:0;font-size:1.6rem">Request a quote</h3>
+          <p style="margin:4px 0 var(--s3)">Tell us about the load. Dispatch usually replies the same business day.</p>
           <form class="demo-form" data-msg="Concept only. Live version: instant confirmation with a reference # and dispatch alerted in Teams.">
             <div class="row r2">
               <label>Pickup ZIP<input inputmode="numeric" placeholder="91768"></label>
@@ -535,7 +618,7 @@
             <div class="icon"><svg><use href="#i-receipt"/></svg></div>
             <h3>Track a load / get your POD</h3>
             <p>Signed delivery paperwork, available as soon as the driver uploads it.</p>
-            <form class="demo-form" style="margin-top:14px" data-msg="Concept only. Live version: returns the signed POD PDF for that load.">
+            <form class="demo-form" style="margin-top:var(--s2)" data-msg="Concept only. Live version: returns the signed POD PDF for that load.">
               <div class="row r2">
                 <label>Load or PRO #<input placeholder="LDI-104822"></label>
                 <label>Delivery ZIP<input inputmode="numeric" placeholder="85009"></label>
@@ -579,44 +662,67 @@
   <section class="section drivers on-dark" id="drive">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Drive for LDI</span>
-        <h2>Local CDL-A jobs. Home every night.</h2>
-        <p class="lede">Company driver positions out of Pomona with morning and evening starts. Apply in two minutes from your phone, and a recruiter calls you back the same day.</p>
+        <span class="eyebrow">Now hiring · California, Arizona &amp; Nevada</span>
+        <h2>Drive for a family-owned fleet</h2>
+        <p class="lede">Class A company drivers out of 11 yards. Apply in two minutes from your phone and a recruiter calls you back the same day.</p>
+      </div>
+
+      <div class="promises">
+        <div class="promise"><svg><use href="#i-calendar"/></svg><b>Year-round work</b></div>
+        <div class="promise"><svg><use href="#i-dollar"/></svg><b>Top pay</b></div>
+        <div class="promise"><svg><use href="#i-heart"/></svg><b>Great benefits</b></div>
+        <div class="promise"><svg><use href="#i-home"/></svg><b>Weekly home time</b></div>
       </div>
 
       <div class="drive-grid">
         <div>
-          <div class="job">
+          <div class="dark-card">
             <h3>Local CDL-A Company Driver</h3>
             <p class="where">Pomona, CA · Dry van &amp; container</p>
-            <div class="badges">
-              <span class="badge">Home daily</span><span class="badge">5 on / 2 off</span><span class="badge">Morning &amp; evening starts</span>
-            </div>
+            <div class="badges"><span class="badge">Home daily</span><span class="badge">5 on / 2 off</span><span class="badge">Morning &amp; evening starts</span></div>
             <div class="pay">
               <div><b>$800–$1,300</b><span>per week</span></div>
               <div><b>$3,000</b><span>sign-on bonus</span></div>
             </div>
           </div>
-          <div class="job small">
-            <h3 style="font-size:1.05rem">Phoenix, AZ terminal</h3>
-            <p>Ask our recruiting team about current openings in Phoenix.</p>
+          <div class="dark-card">
+            <h3>Regional CDL-A Company Driver</h3>
+            <p class="where">California, Arizona &amp; Nevada · Weekly home time</p>
+            <p class="where" style="margin-top:var(--s1)">Ask recruiting about current openings at your nearest yard.</p>
           </div>
-          <p class="fine" style="color:#8ea3b9;margin-top:10px">Pay and bonus taken from a public LDI driver listing; confirm current numbers before launch.</p>
+          <p class="fine" style="color:var(--on-dark-muted);margin:var(--s1) 0 var(--s3)">Local pay and bonus from a public LDI driver listing; confirm current numbers before launch.</p>
 
-          <div class="steps">
-            <div class="step"><div><b>Apply</b>Two-minute form, no account needed.</div></div>
-            <div class="step"><div><b>Recruiter call</b>Usually the same day.</div></div>
-            <div class="step"><div><b>Orientation</b>Finish paperwork from your phone.</div></div>
+          <div class="lists">
+            <div class="dark-card" style="margin-top:0">
+              <h3>Benefits</h3>
+              <ul class="checklist">
+                <li><svg><use href="#i-check"/></svg>Medical, dental &amp; vision</li>
+                <li><svg><use href="#i-check"/></svg>Paid sick days</li>
+                <li><svg><use href="#i-check"/></svg>Paid orientation</li>
+                <li><svg><use href="#i-check"/></svg>401(k) after 1 year</li>
+              </ul>
+            </div>
+            <div class="dark-card" style="margin-top:0">
+              <h3>Driver perks</h3>
+              <ul class="checklist">
+                <li><svg><use href="#i-check"/></svg>Mostly drop &amp; hook</li>
+                <li><svg><use href="#i-check"/></svg>Pet &amp; rider policy</li>
+                <li><svg><use href="#i-check"/></svg>No slip seating</li>
+                <li><svg><use href="#i-check"/></svg>Assigned equipment</li>
+                <li><svg><use href="#i-check"/></svg>Scale &amp; truck wash on premises</li>
+                <li><svg><use href="#i-check"/></svg>Driver lounge</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div class="apply-card">
+        <div class="apply-card" id="apply">
           <h3>Apply in 2 minutes</h3>
           <p>We'll text you a link to finish the full DOT application and upload your CDL and medical card from your phone.</p>
           <form class="demo-form" data-msg="Concept only. Live version: instant text + email to the applicant and a call-now alert to recruiting.">
             <div class="row r2">
-              <label>Full name<input placeholder="First and last name"></label>
-              <label>Mobile phone<input type="tel" placeholder="(555) 555-5555"></label>
+              <label>Full name<input placeholder="First and last name" autocomplete="name"></label>
+              <label>Mobile phone<input type="tel" placeholder="(555) 555-5555" autocomplete="tel"></label>
             </div>
             <div class="row r2">
               <label>CDL class
@@ -627,25 +733,32 @@
               </label>
             </div>
             <div>
-              <label style="margin-bottom:6px">Endorsements</label>
-              <div class="checks"><label><input type="checkbox"> Hazmat (H)</label><label><input type="checkbox"> Tanker (N)</label><label><input type="checkbox"> Doubles/Triples (T)</label><label><input type="checkbox"> TWIC card</label></div>
+              <div class="group-label">Endorsements</div>
+              <div class="checks"><label><input type="checkbox"> Hazmat (H)</label><label><input type="checkbox"> Tanker (N)</label><label><input type="checkbox"> Doubles (T)</label><label><input type="checkbox"> TWIC</label></div>
             </div>
-            <label>Preferred terminal
-              <select><option>Pomona, CA</option><option>Phoenix, AZ</option></select>
+            <label>Nearest yard
+              <select><option>Pomona</option><option>Fontana</option><option>Coachella</option><option>Indio</option><option>Blythe</option><option>Bakersfield</option><option>Visalia</option><option>Fresno</option><option>Turlock</option><option>Crockett</option><option>Phoenix</option></select>
             </label>
             <div class="checks"><label><input type="checkbox" checked> OK to text me about my application</label></div>
             <button class="btn btn-primary" type="submit">Start my application</button>
             <div class="form-msg" role="status"></div>
           </form>
+          <p class="callout">Rather talk? For employment inquiries call <a href="tel:+19096207001">(909) 620-7001</a></p>
         </div>
+      </div>
+
+      <div class="steps">
+        <div class="step"><div><b>Apply</b>Two-minute form, no account needed.</div></div>
+        <div class="step"><div><b>Recruiter call</b>Usually the same day.</div></div>
+        <div class="step"><div><b>Paid orientation</b>Finish paperwork from your phone.</div></div>
       </div>
 
       <div class="auto-row two">
         <aside class="auto">
           <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
           <h4>Speed-to-lead for driver applicants</h4>
-          <p>Drivers apply to several carriers the same day, and the first one to call usually wins. On submit, the applicant gets an instant text and email, lands in the recruiting tracker with a basic qualification check (CDL class, experience, endorsements), and the recruiter gets a "call now" alert. Unfinished applications get automatic text nudges on day 1, 3 and 7.</p>
-          <div class="chips"><span class="chip">SMS + email</span><span class="chip">Recruiting tracker / CRM</span><span class="chip">Follow-up sequence</span></div>
+          <p>Drivers apply to several carriers the same day, and the first one to call usually wins. On submit, the applicant gets an instant text and email, lands in the recruiting tracker with a basic qualification check (CDL class, experience, endorsements) and their nearest yard, and that yard's recruiter gets a "call now" alert. Unfinished applications get automatic text nudges on day 1, 3 and 7.</p>
+          <div class="chips"><span class="chip">SMS + email</span><span class="chip">Recruiting tracker / CRM</span><span class="chip">Routing by yard</span></div>
         </aside>
         <aside class="auto">
           <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
@@ -690,13 +803,13 @@
   </section>
 
   <!-- ================= SAFETY ================= -->
-  <section class="section safety" id="safety">
+  <section class="section warm" id="safety">
     <div class="wrap safety-grid">
       <div class="section-head" style="margin-bottom:0">
         <span class="eyebrow">Safety &amp; compliance</span>
         <h2>Safety is the first thing we load</h2>
-        <p class="lede">Our credentials are public, and we keep them current. Shippers and brokers can verify everything below on FMCSA's SAFER system.</p>
-        <div style="margin-top:12px"><a class="btn btn-outline" href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&amp;query_type=queryCarrierSnapshot&amp;query_param=USDOT&amp;query_string=1074419">View our FMCSA record</a></div>
+        <p class="lede">Our credentials are public, and we keep them current. Shippers and brokers can verify everything here on FMCSA's SAFER system.</p>
+        <div style="margin-top:var(--s2)"><a class="btn btn-outline" href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&amp;query_type=queryCarrierSnapshot&amp;query_param=USDOT&amp;query_string=1074419">View our FMCSA record</a></div>
       </div>
       <ul class="creds">
         <li><span>USDOT number</span><b>1074419</b></li>
@@ -712,7 +825,7 @@
         <aside class="auto">
           <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
           <h4>Expiration tracker (best first project)</h4>
-          <p>One list of everything that expires: CDLs, medical cards, annual MVR reviews, Clearinghouse queries, truck and trailer registrations, annual inspections, IFTA/IRP and insurance COIs. Automatic reminders at 60, 30 and 7 days to the driver and Safety, escalation when something is overdue, and a Monday "expiring in the next 30 days" email to management.</p>
+          <p>One list of everything that expires: CDLs, medical cards, annual MVR reviews, Clearinghouse queries, truck and trailer registrations, annual inspections, IFTA/IRP and insurance COIs. Automatic reminders at 60, 30 and 7 days to the driver and Safety, escalation when something is overdue, and a Monday "expiring in the next 30 days" email to management, broken out by yard.</p>
           <div class="chips"><span class="chip">Excel / SharePoint list</span><span class="chip">Power Automate or n8n</span><span class="chip">SMS + email reminders</span></div>
         </aside>
         <aside class="auto">
@@ -730,7 +843,8 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Contact</span>
-        <h2>Two terminals, one team</h2>
+        <h2>11 yards. One phone number.</h2>
+        <p class="lede">Yards in Pomona, Fontana, Coachella, Indio, Crockett, Fresno, Bakersfield, Visalia, Turlock, Blythe and Phoenix.</p>
       </div>
       <div class="contact-grid">
         <div class="card terminal">
@@ -740,13 +854,13 @@
           <p><a href="tel:+19096207001"><b>(909) 620-7001</b></a><br>Fax (909) 620-8001</p>
         </div>
         <div class="card terminal">
-          <span class="tag">Terminal</span>
+          <span class="tag">Arizona</span>
           <h3>Phoenix, AZ</h3>
           <p>2739 W McDowell Rd<br>Phoenix, AZ 85009</p>
         </div>
         <div class="card">
-          <h3 style="margin-top:0;color:var(--navy)">Send us a message</h3>
-          <form class="demo-form" style="margin-top:12px" data-msg="Concept only. Live version: AI routes this to the right person and replies automatically when it can.">
+          <h3 style="margin-top:0">Send us a message</h3>
+          <form class="demo-form" style="margin-top:var(--s2)" data-msg="Concept only. Live version: AI routes this to the right person and replies automatically when it can.">
             <label>I'm a
               <select><option>Shipper / broker</option><option>Driver or applicant</option><option>Vendor</option><option>Other</option></select>
             </label>
@@ -771,21 +885,27 @@
 
 <footer class="site">
   <div class="wrap">
-    <span>© 2026 LDI Trucking Inc. · USDOT 1074419 · MC-446897</span>
+    <span>© 2026 LDI Trucking Inc. · Family owned &amp; operated · USDOT 1074419 · MC-446897</span>
     <nav aria-label="Footer">
-      <a href="#services">Services</a><a href="#shippers">Shippers</a><a href="#drive">Careers</a><a href="#hub">Driver Hub</a><a href="#safety">Safety</a>
+      <a href="#services">Services</a><a href="#yards">Yards</a><a href="#drive">Careers</a><a href="#hub">Driver Hub</a><a href="#safety">Safety</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </footer>
 
+<!-- Mobile action bar -->
+<div class="mobile-bar" aria-label="Quick actions">
+  <a class="btn btn-outline" href="tel:+19096207001">Call</a>
+  <a class="btn btn-primary" href="#apply">Apply to drive</a>
+</div>
+
 <!-- ================= APPENDIX: ROADMAP (internal, not part of the public site) ================= -->
-<section class="section appendix auto-appendix" id="roadmap">
+<section class="section appendix" id="roadmap">
   <div class="wrap">
     <span class="appendix-label">For LDI management · not part of the public site</span>
     <div class="section-head">
       <span class="eyebrow">Automation roadmap</span>
       <h2>The website is the front door. Most of the value is behind it.</h2>
-      <p class="lede">These are the automations I'd prioritize, based on the AI &amp; Automation Specialist posting and where a ~140-truck carrier usually loses staff time. Each one gets checked with the people who do the work today before anything is built; the plan starts by shadowing each department.</p>
+      <p class="lede">These are the automations I'd prioritize, based on the AI &amp; Automation Specialist posting and where a multi-yard carrier usually loses staff time. Each one gets checked with the people who do the work today before anything is built; the plan starts by shadowing each department.</p>
     </div>
 
     <div class="table-wrap">
@@ -810,7 +930,7 @@
           </tr>
           <tr>
             <td><span class="dept">Recruiting</span></td>
-            <td><b>Applicant speed-to-lead + follow-ups</b><br>Instant reply, qualification check, call-now alerts, day 1/3/7 nudges</td>
+            <td><b>Applicant speed-to-lead + follow-ups</b><br>Instant reply, qualification check, call-now alerts routed by yard, day 1/3/7 nudges</td>
             <td>Manual callbacks; applicants going cold</td>
             <td>Web form, n8n, SMS + email, recruiting tracker</td>
             <td class="effort">1–2 weeks</td>
@@ -838,7 +958,7 @@
           </tr>
           <tr>
             <td><span class="dept">Management</span></td>
-            <td><b>Weekly dashboard</b><br>Loads, revenue per mile, driver pipeline, expirations, AR aging, CSA</td>
+            <td><b>Weekly dashboard by yard</b><br>Loads, revenue per mile, driver pipeline, expirations, AR aging, CSA</td>
             <td>Reports assembled by hand</td>
             <td>Power BI or a lightweight web dashboard on SQL</td>
             <td class="effort">2–3 weeks</td>
@@ -853,10 +973,10 @@
         </tbody>
       </table>
     </div>
-    <p class="fine" style="margin-top:8px">Effort estimates assume access to the relevant systems and a point person per department; they get firmed up after discovery.</p>
+    <p class="fine" style="margin-top:var(--s1)">Effort estimates assume access to the relevant systems and a point person per department; they get firmed up after discovery.</p>
 
     <h3 class="sub-h">Back-of-envelope: paperwork time per load</h3>
-    <p class="lede" style="margin-bottom:16px">Placeholder numbers below. Plug in LDI's real figures and the estimate updates.</p>
+    <p class="lede" style="margin-bottom:var(--s2)">Placeholder numbers below. Plug in LDI's real figures and the estimate updates.</p>
     <div class="calc">
       <div class="calc-inputs">
         <label>Loads per week<input id="c-loads" type="number" min="0" value="500"></label>
@@ -897,7 +1017,7 @@
         <h3>Connect + report</h3>
         <ul>
           <li>Integrations between TMS, accounting and Microsoft 365</li>
-          <li>Management dashboard</li>
+          <li>Management dashboard by yard</li>
           <li>Inbox triage; internal assistant if the need is real</li>
         </ul>
       </div>

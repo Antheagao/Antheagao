@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LDI Trucking Concept</title>
+<meta name="description" content="Website and automation concept prepared for LDI Trucking Inc. by Anthony Mendez. Not the official LDI Trucking website.">
+<style>
+  :root {
+    --navy: #0d2238;
+    --navy-2: #15314f;
+    --navy-3: #21456c;
+    --ink: #15212d;
+    --muted: #566575;
+    --line: #dbe2ea;
+    --bg: #ffffff;
+    --soft: #f3f6f9;
+    --accent: #e5671b;
+    --accent-2: #c4520e;
+    --accent-soft: #fdeee4;
+    --auto: #5a46d6;
+    --auto-ink: #3d2db0;
+    --auto-soft: #f3f1ff;
+    --auto-line: #d3ccfb;
+    --ok: #1d7f55;
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(13, 34, 56, .06), 0 8px 24px rgba(13, 34, 56, .08);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 var(--font);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 28px; } }
+
+  h1, h2, h3 { line-height: 1.15; letter-spacing: -0.01em; margin: 0; }
+  h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); }
+  h3 { font-size: 1.1rem; }
+  p { margin: 0; }
+  .eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  .lede { color: var(--muted); font-size: 1.05rem; max-width: 62ch; }
+  .section { padding: 72px 0; }
+  .section-head { display: grid; gap: 10px; margin-bottom: 32px; }
+  .fine { font-size: .78rem; color: var(--muted); }
+
+  /* ---------- Concept bar (not part of the proposed site) ---------- */
+  .concept-bar {
+    background: var(--auto-ink);
+    color: #fff;
+    font-size: .85rem;
+  }
+  .concept-bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 9px; padding-bottom: 9px; flex-wrap: wrap; }
+  .concept-bar strong { font-weight: 700; }
+  .toggle {
+    appearance: none; border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.12); color: #fff;
+    font: inherit; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+  }
+  .toggle:hover { background: rgba(255,255,255,.22); }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.site .wrap { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 40px; height: 40px; border-radius: 8px; background: var(--navy); color: #fff;
+    display: grid; place-items: center; font-weight: 800; font-size: .95rem; letter-spacing: .02em;
+    box-shadow: inset 0 -4px 0 var(--accent);
+  }
+  .logo-text { font-weight: 800; font-size: 1.1rem; color: var(--navy); line-height: 1; }
+  .logo-text small { display: block; font-weight: 600; font-size: .68rem; letter-spacing: .12em; color: var(--muted); margin-top: 3px; }
+  nav.main { display: none; gap: 22px; font-size: .93rem; font-weight: 600; }
+  nav.main a { text-decoration: none; color: var(--ink); }
+  nav.main a:hover { color: var(--accent-2); }
+  .header-cta { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+  .phone { display: none; font-weight: 700; text-decoration: none; color: var(--navy); font-size: .95rem; }
+  @media (min-width: 1000px) { nav.main { display: flex; } .phone { display: inline; } }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font: inherit; font-weight: 700; font-size: .95rem; line-height: 1;
+    padding: 13px 20px; border-radius: 10px; border: 2px solid transparent;
+    text-decoration: none; cursor: pointer; white-space: nowrap;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-2); }
+  .btn-ghost { border-color: rgba(255,255,255,.55); color: #fff; background: transparent; }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); }
+  .btn-outline { border-color: var(--navy); color: var(--navy); background: #fff; }
+  .btn-outline:hover { background: var(--soft); }
+  .btn-sm { padding: 10px 14px; font-size: .88rem; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(229,103,27,.22), transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff;
+    overflow: hidden;
+  }
+  .hero .wrap { display: grid; gap: 40px; padding-top: 64px; padding-bottom: 40px; align-items: center; }
+  @media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.2fr 1fr; padding-top: 88px; } }
+  .hero .wrap.hero-bottom { display: block; padding-top: 0; }
+  .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; }
+  .hero h1 span { color: #ffb184; }
+  .hero p.sub { color: #c9d6e4; font-size: 1.12rem; margin-top: 18px; max-width: 54ch; }
+  .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .hero .eyebrow { color: #ffb184; margin-bottom: 14px; display: block; }
+  .truck { width: 100%; height: auto; display: block; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: rgba(255,255,255,.14); border-radius: var(--radius); overflow: hidden;
+    margin-top: 8px;
+  }
+  @media (min-width: 760px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stat { background: var(--navy-2); padding: 18px 20px; }
+  .stat b { display: block; font-size: 1.45rem; font-weight: 800; color: #fff; }
+  .stat span { color: #aebfd1; font-size: .86rem; }
+  .hero .fine { color: #8ea3b9; padding: 12px 0 0; }
+  .hero-bottom { padding-bottom: 56px; }
+
+  /* ---------- Automation notes (annotation layer) ---------- */
+  .auto {
+    border: 1px dashed var(--auto-line);
+    background: var(--auto-soft);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    color: #2c2550;
+    font-size: .92rem;
+    position: relative;
+  }
+  .auto + .auto { margin-top: 12px; }
+  .auto .auto-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--auto);
+    margin-bottom: 6px;
+  }
+  .auto .auto-tag svg { width: 14px; height: 14px; }
+  .auto h4 { margin: 0 0 4px; font-size: .98rem; color: var(--auto-ink); }
+  .auto p + p { margin-top: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #fff; border: 1px solid var(--auto-line); color: var(--auto-ink); }
+  .on-dark .auto { background: rgba(243,241,255,.96); }
+  body.hide-auto .auto { display: none; }
+  .auto-row { margin-top: 24px; display: grid; gap: 12px; }
+  .auto-row .auto + .auto { margin-top: 0; }
+  @media (min-width: 900px) { .auto-row.two { grid-template-columns: 1fr 1fr; } }
+
+  /* ---------- Cards / grids ---------- */
+  .grid { display: grid; gap: 18px; }
+  @media (min-width: 640px) { .grid.g2 { grid-template-columns: 1fr 1fr; } .grid.g4 { grid-template-columns: 1fr 1fr; } .grid.g3 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .grid.g4 { grid-template-columns: repeat(4, 1fr); } .grid.g3 { grid-template-columns: repeat(3, 1fr); } }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 12px 0 6px; }
+  .card p { color: var(--muted); font-size: .95rem; }
+  .icon {
+    width: 44px; height: 44px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-2);
+    display: grid; place-items: center;
+  }
+  .icon svg { width: 24px; height: 24px; }
+
+  /* lane graphic */
+  .lanes {
+    margin-top: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--soft);
+    padding: 22px 20px 18px;
+  }
+  .lanes-title { font-weight: 700; font-size: .9rem; color: var(--navy); margin-bottom: 18px; }
+  .lane { display: flex; align-items: flex-start; }
+  .node { flex: 0 0 auto; display: grid; justify-items: center; text-align: center; gap: 8px; width: 110px; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--navy); }
+  .dot.hq { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+  .node b { font-size: .88rem; color: var(--navy); line-height: 1.2; }
+  .node span { font-size: .75rem; color: var(--muted); }
+  .seg { flex: 1 1 auto; position: relative; height: 18px; display: grid; place-items: center; }
+  .seg::before { content: ""; position: absolute; left: -6px; right: -6px; top: 8px; border-top: 3px dashed var(--navy-3); }
+  .seg em { position: relative; top: 18px; font-style: normal; font-size: .72rem; font-weight: 700; color: var(--muted); background: var(--soft); padding: 0 6px; }
+  @media (max-width: 559px) {
+    .lane { flex-direction: column; }
+    .node { width: auto; grid-template-columns: 18px 1fr; justify-items: start; align-items: center; text-align: left; column-gap: 12px; row-gap: 0; }
+    .node .dot { grid-row: span 2; }
+    .seg { flex: 0 0 auto; width: 18px; height: 40px; }
+    .seg::before { left: 7px; right: auto; top: -2px; bottom: -2px; border-top: 0; border-left: 3px dashed var(--navy-3); }
+    .seg em { position: absolute; top: 11px; left: 30px; white-space: nowrap; padding: 0; }
+  }
+
+  /* ---------- Forms ---------- */
+  form { display: grid; gap: 12px; }
+  .row { display: grid; gap: 12px; }
+  @media (min-width: 520px) { .row.r2 { grid-template-columns: 1fr 1fr; } }
+  label { display: grid; gap: 5px; font-size: .82rem; font-weight: 700; color: var(--navy); }
+  input, select, textarea {
+    font: inherit; font-size: .95rem; font-weight: 400; color: var(--ink);
+    padding: 11px 12px; border-radius: 8px; border: 1px solid #c6d0db; background: #fff; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: 3px solid rgba(229,103,27,.25); border-color: var(--accent); }
+  .checks { display: flex; flex-wrap: wrap; gap: 8px 16px; font-weight: 500; font-size: .9rem; color: var(--ink); }
+  .checks label { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; font-size: .9rem; color: var(--ink); }
+  .checks input { width: auto; }
+  .form-msg { display: none; font-size: .88rem; border-radius: 8px; padding: 10px 12px; background: #e9f7f0; color: var(--ok); font-weight: 600; }
+  .form-msg.show { display: block; }
+
+  /* ---------- Shipper section ---------- */
+  .ship-grid { display: grid; gap: 20px; align-items: start; }
+  @media (min-width: 900px) { .ship-grid { grid-template-columns: 1.25fr 1fr; } }
+  .stack { display: grid; gap: 20px; }
+  .doc-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+  /* ---------- Drivers ---------- */
+  .drivers { background: var(--navy); color: #fff; }
+  .drivers .lede { color: #c2d0df; }
+  .drivers .eyebrow { color: #ffb184; }
+  .drive-grid { display: grid; gap: 20px; align-items: start; }
+  @media (min-width: 900px) { .drive-grid { grid-template-columns: 1fr 1fr; } }
+  .job {
+    background: var(--navy-2); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 24px;
+  }
+  .job h3 { font-size: 1.25rem; }
+  .job .where { color: #aebfd1; font-size: .9rem; margin-top: 4px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .badge { font-size: .8rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.1); color: #fff; }
+  .pay { display: flex; gap: 28px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.12); padding-top: 16px; }
+  .pay b { display: block; font-size: 1.5rem; color: #ffb184; }
+  .pay span { font-size: .82rem; color: #aebfd1; }
+  .job.small { padding: 18px 24px; margin-top: 14px; }
+  .job.small p { color: #c2d0df; font-size: .92rem; }
+  .apply-card { background: #fff; color: var(--ink); border-radius: var(--radius); padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,.25); }
+  .apply-card h3 { font-size: 1.25rem; color: var(--navy); }
+  .apply-card > p { color: var(--muted); font-size: .92rem; margin: 6px 0 16px; }
+  .steps { display: grid; gap: 10px; margin-top: 22px; counter-reset: step; }
+  @media (min-width: 640px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  .step { display: flex; gap: 12px; align-items: flex-start; font-size: .9rem; color: #c2d0df; }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800;
+    display: grid; place-items: center; font-size: .85rem;
+  }
+  .step b { color: #fff; display: block; }
+
+  /* ---------- Driver hub ---------- */
+  .tile {
+    display: flex; gap: 14px; align-items: flex-start; text-decoration: none;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+  }
+  .tile:hover { border-color: var(--accent); }
+  .tile b { display: block; color: var(--navy); }
+  .tile span { color: var(--muted); font-size: .88rem; }
+  .tile .icon { flex: 0 0 44px; }
+
+  /* ---------- Safety ---------- */
+  .safety { background: var(--soft); }
+  .safety-grid { display: grid; gap: 24px; align-items: start; }
+  @media (min-width: 900px) { .safety-grid { grid-template-columns: 1fr 1.1fr; } }
+  .creds { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+  .creds li { background: #fff; display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; font-size: .95rem; }
+  .creds li span { color: var(--muted); }
+  .creds li b { color: var(--navy); text-align: right; }
+  .creds li b.good { color: var(--ok); }
+
+  /* ---------- Contact ---------- */
+  .contact-grid { display: grid; gap: 20px; align-items: start; }
+  @media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr 1.2fr; } }
+  .terminal h3 { color: var(--navy); }
+  .terminal p { color: var(--ink); font-size: .95rem; margin-top: 8px; }
+  .terminal .tag { display: inline-block; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); background: var(--accent-soft); padding: 3px 8px; border-radius: 6px; }
+
+  footer.site { background: var(--navy); color: #aebfd1; font-size: .88rem; }
+  footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 28px; padding-bottom: 28px; }
+  footer.site a { color: #fff; text-decoration: none; }
+  footer.site nav { display: flex; gap: 18px; flex-wrap: wrap; }
+
+  /* ---------- Roadmap appendix ---------- */
+  .appendix { background: #faf9ff; border-top: 6px solid var(--auto); }
+  .appendix .eyebrow { color: var(--auto); }
+  .appendix-label {
+    display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    background: var(--auto); color: #fff; padding: 4px 10px; border-radius: 6px; margin-bottom: 14px;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--auto-line); border-radius: var(--radius); background: #fff; }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: .9rem; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid #ebe8fb; }
+  th { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--auto-ink); background: var(--auto-soft); }
+  tr:last-child td { border-bottom: 0; }
+  td b { color: var(--navy); }
+  td .dept { font-weight: 800; color: var(--auto-ink); white-space: nowrap; }
+  .effort { white-space: nowrap; font-weight: 700; color: var(--navy); }
+  .prio { display: inline-block; font-size: .7rem; font-weight: 800; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-2); margin-left: 4px; }
+
+  .phases { display: grid; gap: 16px; margin-top: 18px; }
+  @media (min-width: 760px) { .phases { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .phases { grid-template-columns: repeat(4, 1fr); } }
+  .phase { background: #fff; border: 1px solid var(--auto-line); border-radius: var(--radius); padding: 18px; }
+  .phase .when { font-size: .74rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--auto); }
+  .phase h3 { margin: 6px 0 8px; color: var(--navy); }
+  .phase ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .9rem; display: grid; gap: 5px; }
+
+  .calc { display: grid; gap: 20px; background: #fff; border: 1px solid var(--auto-line); border-radius: var(--radius); padding: 22px; }
+  @media (min-width: 900px) { .calc { grid-template-columns: 1.3fr 1fr; align-items: center; } }
+  .calc-inputs { display: grid; gap: 12px; }
+  @media (min-width: 560px) { .calc-inputs { grid-template-columns: 1fr 1fr; } }
+  .calc-out { background: var(--navy); color: #fff; border-radius: var(--radius); padding: 22px; display: grid; gap: 14px; }
+  .calc-out div b { display: block; font-size: 2rem; font-weight: 800; color: #ffb184; line-height: 1.1; }
+  .calc-out div span { font-size: .85rem; color: #c2d0df; }
+
+  .two-col { display: grid; gap: 20px; margin-top: 18px; }
+  @media (min-width: 900px) { .two-col { grid-template-columns: 1fr 1fr; } }
+  .panel { background: #fff; border: 1px solid var(--auto-line); border-radius: var(--radius); padding: 22px; }
+  .panel h3 { color: var(--navy); margin-bottom: 10px; }
+  .panel ul { margin: 0; padding-left: 18px; display: grid; gap: 7px; font-size: .94rem; }
+  .prepared { margin-top: 28px; font-size: .9rem; color: var(--muted); }
+  .prepared a { color: var(--auto-ink); font-weight: 700; }
+  .sub-h { margin: 44px 0 6px; font-size: 1.3rem; color: var(--navy); }
+
+  /* ---------- Print / PDF ---------- */
+  @media print {
+    @page { size: Letter; }
+    body { font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    header.site { position: static; }
+    .toggle { display: none; }
+    .section { padding: 36px 0; }
+    .card, .tile, .auto, .job, .apply-card, .phase, .panel, .calc, .lanes, tr { break-inside: avoid; }
+    .hero .wrap { padding-top: 40px; }
+    .appendix { break-before: page; }
+    .sub-h { break-after: avoid; }
+    table { min-width: 0; }
+    .table-wrap { overflow: visible; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Inline icon sprites -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></symbol>
+  <symbol id="i-container" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1.5"/><path d="M6 9v6M10 9v6M14 9v6M18 9v6"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 1 .7V2l-1 .7-3-2-3 2-3-2-3 2-3-2z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-hazmat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 22 12 12 22 2 12z"/><path d="M12 8v5M12 16h.01"/></symbol>
+</svg>
+
+<!-- Concept bar: explains what this page is. Remove before any real launch. -->
+<div class="concept-bar" role="note">
+  <div class="wrap">
+    <span><strong>Concept redesign</strong> prepared for LDI Trucking Inc. by Anthony Mendez. Not the official LDI website. Purple notes show the automation behind each feature.</span>
+    <button class="toggle" id="toggleAuto" type="button" aria-pressed="true">Hide automation notes</button>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="LDI Trucking home">
+      <span class="logo-mark">LDI</span>
+      <span class="logo-text">LDI Trucking<small>POMONA · PHOENIX</small></span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#shippers">Shippers</a>
+      <a href="#drive">Drive for LDI</a>
+      <a href="#hub">Driver Hub</a>
+      <a href="#safety">Safety</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a class="phone" href="tel:+19096207001">(909) 620-7001</a>
+      <a class="btn btn-primary btn-sm" href="#drive">Apply to drive</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero on-dark">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Asset-based carrier · Pomona, CA &amp; Phoenix, AZ</span>
+        <h1>Our trucks.<br>Our drivers.<br><span>Your freight, on time.</span></h1>
+        <p class="sub">LDI Trucking moves dry van and container freight across Southern California and Arizona with a company-owned fleet run out of Pomona and Phoenix. One dispatch team, one phone number, every load.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="#shippers">Request a quote</a>
+          <a class="btn btn-ghost" href="#drive">Drive for LDI &rarr;</a>
+        </div>
+      </div>
+      <svg class="truck" viewBox="0 0 520 230" role="img" aria-label="Illustration of an LDI tractor-trailer">
+        <g stroke="#ffffff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round">
+          <line x1="0" y1="80" x2="22" y2="80"/><line x1="4" y1="110" x2="34" y2="110"/><line x1="10" y1="140" x2="28" y2="140"/>
+        </g>
+        <rect x="44" y="34" width="300" height="128" rx="7" fill="#ffffff"/>
+        <rect x="44" y="146" width="300" height="10" fill="#e5671b"/>
+        <text x="74" y="112" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#0d2238">LDI</text>
+        <text x="206" y="112" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="#e5671b">TRUCKING</text>
+        <rect x="44" y="162" width="300" height="9" fill="#0a1a2b"/>
+        <rect x="120" y="171" width="7" height="22" fill="#0a1a2b"/>
+        <rect x="352" y="22" width="7" height="58" rx="3" fill="#c9d6e4"/>
+        <path d="M350 170 V78 Q350 64 364 64 H420 Q440 64 452 84 L474 124 Q490 130 492 146 V170 Z" fill="#e5671b"/>
+        <path d="M410 76 H430 Q436 76 440 84 L456 114 H410 Z" fill="#0d2238" fill-opacity=".75"/>
+        <rect x="364" y="80" width="34" height="40" rx="3" fill="#ffffff" fill-opacity=".18"/>
+        <rect x="474" y="150" width="22" height="12" rx="2" fill="#c9d6e4"/>
+        <rect x="336" y="160" width="160" height="12" fill="#0a1a2b"/>
+        <g fill="#0a1a2b"><circle cx="258" cy="184" r="19"/><circle cx="302" cy="184" r="19"/><circle cx="388" cy="184" r="19"/><circle cx="460" cy="184" r="19"/></g>
+        <g fill="#8ea3b9"><circle cx="258" cy="184" r="7"/><circle cx="302" cy="184" r="7"/><circle cx="388" cy="184" r="7"/><circle cx="460" cy="184" r="7"/></g>
+        <line x1="0" y1="205" x2="520" y2="205" stroke="#ffffff" stroke-opacity=".25" stroke-width="2"/>
+        <g stroke="#ffffff" stroke-opacity=".35" stroke-width="3"><line x1="20" y1="220" x2="70" y2="220"/><line x1="130" y1="220" x2="180" y2="220"/><line x1="240" y1="220" x2="290" y2="220"/><line x1="350" y1="220" x2="400" y2="220"/><line x1="460" y1="220" x2="510" y2="220"/></g>
+      </svg>
+    </div>
+    <div class="wrap hero-bottom">
+      <div class="stats">
+        <div class="stat"><b>~140</b><span>Company tractors</span></div>
+        <div class="stat"><b>Satisfactory</b><span>FMCSA safety rating</span></div>
+        <div class="stat"><b>Hazmat</b><span>Certified carrier</span></div>
+        <div class="stat"><b>Since 2008</b><span>Interstate authority · MC-446897</span></div>
+      </div>
+      <p class="fine">Figures from public FMCSA records; LDI to confirm before launch. Photo of the real fleet would replace the illustration.</p>
+      <div class="auto-row">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Numbers that never go stale</h4>
+          <p>A weekly scheduled job pulls LDI's carrier record from FMCSA's public QCMobile API (fleet size, safety rating, authority status) and updates this strip automatically. The same data feeds the CSA monitor on the Safety dashboard.</p>
+          <div class="chips"><span class="chip">FMCSA QCMobile API</span><span class="chip">n8n / Power Automate schedule</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What we haul</span>
+        <h2>Full-truckload capacity with one point of contact</h2>
+        <p class="lede">Company drivers in company trucks, so we don't broker your freight to strangers. Draft service copy; LDI to confirm exact services and lanes.</p>
+      </div>
+      <div class="grid g4">
+        <div class="card">
+          <div class="icon"><svg><use href="#i-box"/></svg></div>
+          <h3>Dry van truckload</h3>
+          <p>53′ dry van, full truckload, general commodities. Live load or drop trailer.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg><use href="#i-container"/></svg></div>
+          <h3>Container freight</h3>
+          <p>Container moves between Southern California ports, rail ramps and Inland Empire warehouses.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg><use href="#i-truck"/></svg></div>
+          <h3>Power only</h3>
+          <p>Our tractor and driver, your trailer. Flexible capacity for shippers and 3PLs with their own equipment.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg><use href="#i-hazmat"/></svg></div>
+          <h3>Hazmat-certified</h3>
+          <p>Endorsed drivers and a compliance program for regulated freight.</p>
+        </div>
+      </div>
+
+      <div class="lanes" aria-label="Core lanes">
+        <div class="lanes-title">Core lanes (to confirm)</div>
+        <div class="lane">
+          <div class="node"><span class="dot"></span><b>LA / Long Beach</b><span>Ports &amp; rail</span></div>
+          <div class="seg"><em>≈45 mi</em></div>
+          <div class="node"><span class="dot hq"></span><b>Pomona, CA</b><span>Headquarters</span></div>
+          <div class="seg"><em>I-10 · ≈340 mi</em></div>
+          <div class="node"><span class="dot"></span><b>Phoenix, AZ</b><span>Terminal</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHIPPERS ================= -->
+  <section class="section" id="shippers" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Ship with LDI</span>
+        <h2>Get a quote, find a POD, onboard us as a carrier</h2>
+        <p class="lede">Everything a shipper or broker usually has to email or call about, available on the site.</p>
+      </div>
+
+      <div class="ship-grid">
+        <div class="card">
+          <h3 style="margin-top:0;color:var(--navy);font-size:1.25rem">Request a quote</h3>
+          <p style="margin:4px 0 16px">Tell us about the load. Dispatch usually replies the same business day.</p>
+          <form class="demo-form" data-msg="Concept only. Live version: instant confirmation with a reference # and dispatch alerted in Teams.">
+            <div class="row r2">
+              <label>Pickup ZIP<input inputmode="numeric" placeholder="91768"></label>
+              <label>Delivery ZIP<input inputmode="numeric" placeholder="85009"></label>
+            </div>
+            <div class="row r2">
+              <label>Equipment
+                <select><option>53′ dry van</option><option>Container</option><option>Power only</option></select>
+              </label>
+              <label>Ready date<input type="date"></label>
+            </div>
+            <div class="row r2">
+              <label>Weight (lbs)<input inputmode="numeric" placeholder="42,000"></label>
+              <label>Commodity<input placeholder="Packaged goods"></label>
+            </div>
+            <div class="checks"><label><input type="checkbox"> Hazmat</label><label><input type="checkbox"> Recurring lane</label></div>
+            <div class="row r2">
+              <label>Company<input placeholder="Company name"></label>
+              <label>Your name<input placeholder="Full name"></label>
+            </div>
+            <div class="row r2">
+              <label>Email<input type="email" placeholder="you@company.com"></label>
+              <label>Phone<input type="tel" placeholder="(555) 555-5555"></label>
+            </div>
+            <button class="btn btn-primary" type="submit">Request quote</button>
+            <div class="form-msg" role="status"></div>
+          </form>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <div class="icon"><svg><use href="#i-receipt"/></svg></div>
+            <h3>Track a load / get your POD</h3>
+            <p>Signed delivery paperwork, available as soon as the driver uploads it.</p>
+            <form class="demo-form" style="margin-top:14px" data-msg="Concept only. Live version: returns the signed POD PDF for that load.">
+              <div class="row r2">
+                <label>Load or PRO #<input placeholder="LDI-104822"></label>
+                <label>Delivery ZIP<input inputmode="numeric" placeholder="85009"></label>
+              </div>
+              <button class="btn btn-outline" type="submit">Find documents</button>
+              <div class="form-msg" role="status"></div>
+            </form>
+          </div>
+          <div class="card">
+            <div class="icon"><svg><use href="#i-shield"/></svg></div>
+            <h3>Broker &amp; shipper onboarding</h3>
+            <p>Download our carrier packet without waiting on an email.</p>
+            <div class="doc-btns">
+              <a class="btn btn-outline btn-sm" href="#shippers">Carrier packet</a>
+              <a class="btn btn-outline btn-sm" href="#shippers">W-9</a>
+              <a class="btn btn-outline btn-sm" href="#shippers">Certificate of insurance</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auto-row two">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Quote requests reach dispatch in seconds</h4>
+          <p>The form posts to a webhook that logs the request (Excel/SharePoint list or the TMS), emails the shipper a confirmation with a reference #, and alerts dispatch in Teams with a suggested rate pulled from LDI's own history on that lane. Quotes with no reply get an automatic follow-up after 24 hours; won/lost feeds the management dashboard.</p>
+          <div class="chips"><span class="chip">Webhook → n8n / Power Automate</span><span class="chip">Teams alert</span><span class="chip">Lane history in SQL/Excel</span></div>
+        </aside>
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Self-serve PODs and an always-current carrier packet</h4>
+          <p>When a driver photographs the signed BOL/POD, an AI document reader extracts the load #, consignee, signature and any exception notes, files it under the load, and makes it downloadable here. "Can you send me the POD?" emails stop, and billing gets the same file instantly.</p>
+          <p>Insurance expirations are tracked, so the carrier packet and COI regenerate automatically when a policy renews.</p>
+          <div class="chips"><span class="chip">OCR + vision model</span><span class="chip">Human review for low-confidence fields</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DRIVERS ================= -->
+  <section class="section drivers on-dark" id="drive">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Drive for LDI</span>
+        <h2>Local CDL-A jobs. Home every night.</h2>
+        <p class="lede">Company driver positions out of Pomona with morning and evening starts. Apply in two minutes from your phone, and a recruiter calls you back the same day.</p>
+      </div>
+
+      <div class="drive-grid">
+        <div>
+          <div class="job">
+            <h3>Local CDL-A Company Driver</h3>
+            <p class="where">Pomona, CA · Dry van &amp; container</p>
+            <div class="badges">
+              <span class="badge">Home daily</span><span class="badge">5 on / 2 off</span><span class="badge">Morning &amp; evening starts</span>
+            </div>
+            <div class="pay">
+              <div><b>$800–$1,300</b><span>per week</span></div>
+              <div><b>$3,000</b><span>sign-on bonus</span></div>
+            </div>
+          </div>
+          <div class="job small">
+            <h3 style="font-size:1.05rem">Phoenix, AZ terminal</h3>
+            <p>Ask our recruiting team about current openings in Phoenix.</p>
+          </div>
+          <p class="fine" style="color:#8ea3b9;margin-top:10px">Pay and bonus taken from a public LDI driver listing; confirm current numbers before launch.</p>
+
+          <div class="steps">
+            <div class="step"><div><b>Apply</b>Two-minute form, no account needed.</div></div>
+            <div class="step"><div><b>Recruiter call</b>Usually the same day.</div></div>
+            <div class="step"><div><b>Orientation</b>Finish paperwork from your phone.</div></div>
+          </div>
+        </div>
+
+        <div class="apply-card">
+          <h3>Apply in 2 minutes</h3>
+          <p>We'll text you a link to finish the full DOT application and upload your CDL and medical card from your phone.</p>
+          <form class="demo-form" data-msg="Concept only. Live version: instant text + email to the applicant and a call-now alert to recruiting.">
+            <div class="row r2">
+              <label>Full name<input placeholder="First and last name"></label>
+              <label>Mobile phone<input type="tel" placeholder="(555) 555-5555"></label>
+            </div>
+            <div class="row r2">
+              <label>CDL class
+                <select><option>Class A</option><option>Class B</option><option>CDL permit</option></select>
+              </label>
+              <label>Verifiable experience
+                <select><option>Under 1 year</option><option>1–2 years</option><option>3–5 years</option><option>5+ years</option></select>
+              </label>
+            </div>
+            <div>
+              <label style="margin-bottom:6px">Endorsements</label>
+              <div class="checks"><label><input type="checkbox"> Hazmat (H)</label><label><input type="checkbox"> Tanker (N)</label><label><input type="checkbox"> Doubles/Triples (T)</label><label><input type="checkbox"> TWIC card</label></div>
+            </div>
+            <label>Preferred terminal
+              <select><option>Pomona, CA</option><option>Phoenix, AZ</option></select>
+            </label>
+            <div class="checks"><label><input type="checkbox" checked> OK to text me about my application</label></div>
+            <button class="btn btn-primary" type="submit">Start my application</button>
+            <div class="form-msg" role="status"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="auto-row two">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Speed-to-lead for driver applicants</h4>
+          <p>Drivers apply to several carriers the same day, and the first one to call usually wins. On submit, the applicant gets an instant text and email, lands in the recruiting tracker with a basic qualification check (CDL class, experience, endorsements), and the recruiter gets a "call now" alert. Unfinished applications get automatic text nudges on day 1, 3 and 7.</p>
+          <div class="chips"><span class="chip">SMS + email</span><span class="chip">Recruiting tracker / CRM</span><span class="chip">Follow-up sequence</span></div>
+        </aside>
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Paperless onboarding</h4>
+          <p>The follow-up link collects the CDL, medical card and signed consent forms from the driver's phone. OCR reads the expiration dates straight off the documents and starts the driver qualification (DQ) file checklist automatically, with no retyping. Missing items trigger reminders to the driver, not to the recruiter's to-do list.</p>
+          <div class="chips"><span class="chip">Mobile upload</span><span class="chip">OCR date extraction</span><span class="chip">DQ file checklist</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DRIVER HUB ================= -->
+  <section class="section" id="hub">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Driver Hub</span>
+        <h2>Everything current LDI drivers need, from their phone</h2>
+      </div>
+      <div class="grid g3">
+        <a class="tile" href="#hub"><span class="icon"><svg><use href="#i-camera"/></svg></span><span><b>Upload BOL / POD</b><span>Snap a photo at the dock. It's filed to your load.</span></span></a>
+        <a class="tile" href="#hub"><span class="icon"><svg><use href="#i-receipt"/></svg></span><span><b>Upload receipts</b><span>Lumper, scale and toll receipts for reimbursement.</span></span></a>
+        <a class="tile" href="#hub"><span class="icon"><svg><use href="#i-id"/></svg></span><span><b>Renew medical card</b><span>Upload your new card before the old one expires.</span></span></a>
+        <a class="tile" href="#hub"><span class="icon"><svg><use href="#i-dollar"/></svg></span><span><b>Settlements &amp; pay</b><span>Settlements and pay stubs.</span></span></a>
+        <a class="tile" href="#hub"><span class="icon"><svg><use href="#i-book"/></svg></span><span><b>Policies &amp; handbook</b><span>Safety policies, procedures, forms.</span></span></a>
+        <a class="tile" href="#hub"><span class="icon"><svg><use href="#i-phone"/></svg></span><span><b>Who to call</b><span>Dispatch, safety, payroll, after-hours.</span></span></a>
+      </div>
+      <div class="auto-row two">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Paperwork that files itself</h4>
+          <p>Every upload is read by AI. A BOL/POD is attached to the load and its invoice packet; lumper and scale receipts are matched to the load as billable accessorials; a renewed medical card updates the compliance tracker with the new expiration date. Missing signatures or unreadable photos trigger a text back to the driver before they leave the dock.</p>
+          <div class="chips"><span class="chip">Vision model extraction</span><span class="chip">Load matching</span><span class="chip">Invoice packet builder</span></div>
+        </aside>
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Driver assistant (optional, phase 3)</h4>
+          <p>A text-based assistant answers "who do I call for…", "when is payday?" and handbook questions using only LDI's own documents, and hands off to a person for anything else. Only worth building if the shadowing phase shows these questions eat real dispatcher time.</p>
+          <div class="chips"><span class="chip">Answers from LDI docs only</span><span class="chip">Human handoff</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SAFETY ================= -->
+  <section class="section safety" id="safety">
+    <div class="wrap safety-grid">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow">Safety &amp; compliance</span>
+        <h2>Safety is the first thing we load</h2>
+        <p class="lede">Our credentials are public, and we keep them current. Shippers and brokers can verify everything below on FMCSA's SAFER system.</p>
+        <div style="margin-top:12px"><a class="btn btn-outline" href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&amp;query_type=queryCarrierSnapshot&amp;query_param=USDOT&amp;query_string=1074419">View our FMCSA record</a></div>
+      </div>
+      <ul class="creds">
+        <li><span>USDOT number</span><b>1074419</b></li>
+        <li><span>MC number</span><b>MC-446897</b></li>
+        <li><span>FMCSA safety rating</span><b class="good">Satisfactory</b></li>
+        <li><span>Operating authority</span><b class="good">Active · interstate</b></li>
+        <li><span>Hazardous materials</span><b>Certified</b></li>
+        <li><span>Drug &amp; alcohol program</span><b>FMCSA Clearinghouse</b></li>
+      </ul>
+    </div>
+    <div class="wrap">
+      <div class="auto-row two">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Expiration tracker (best first project)</h4>
+          <p>One list of everything that expires: CDLs, medical cards, annual MVR reviews, Clearinghouse queries, truck and trailer registrations, annual inspections, IFTA/IRP and insurance COIs. Automatic reminders at 60, 30 and 7 days to the driver and Safety, escalation when something is overdue, and a Monday "expiring in the next 30 days" email to management.</p>
+          <div class="chips"><span class="chip">Excel / SharePoint list</span><span class="chip">Power Automate or n8n</span><span class="chip">SMS + email reminders</span></div>
+        </aside>
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>CSA monitor</h4>
+          <p>A weekly pull of LDI's FMCSA inspection data flags new inspections and violations by driver and unit, so Safety can coach early instead of finding out when scores move.</p>
+          <div class="chips"><span class="chip">FMCSA data</span><span class="chip">Weekly digest</span><span class="chip">Management dashboard</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Contact</span>
+        <h2>Two terminals, one team</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="card terminal">
+          <span class="tag">Headquarters</span>
+          <h3>Pomona, CA</h3>
+          <p>200 Erie St<br>Pomona, CA 91768</p>
+          <p><a href="tel:+19096207001"><b>(909) 620-7001</b></a><br>Fax (909) 620-8001</p>
+        </div>
+        <div class="card terminal">
+          <span class="tag">Terminal</span>
+          <h3>Phoenix, AZ</h3>
+          <p>2739 W McDowell Rd<br>Phoenix, AZ 85009</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;color:var(--navy)">Send us a message</h3>
+          <form class="demo-form" style="margin-top:12px" data-msg="Concept only. Live version: AI routes this to the right person and replies automatically when it can.">
+            <label>I'm a
+              <select><option>Shipper / broker</option><option>Driver or applicant</option><option>Vendor</option><option>Other</option></select>
+            </label>
+            <label>Email<input type="email" placeholder="you@company.com"></label>
+            <label>Message<textarea rows="3" placeholder="How can we help?"></textarea></label>
+            <button class="btn btn-primary" type="submit">Send</button>
+            <div class="form-msg" role="status"></div>
+          </form>
+        </div>
+      </div>
+      <div class="auto-row">
+        <aside class="auto">
+          <div class="auto-tag"><svg><use href="#i-gear"/></svg>Automation behind this</div>
+          <h4>Inbox triage for every shared mailbox</h4>
+          <p>Every message, from this form or emailed to a shared inbox, is classified by AI (quote request, POD request, invoice or payment question, rate confirmation, applicant, vendor) and routed to the right person or queue, with attachments saved to the right load folder. Routine replies like "POD attached" or "application received" go out automatically; anything else is drafted for a person to approve.</p>
+          <div class="chips"><span class="chip">Microsoft 365 / Outlook</span><span class="chip">Power Automate</span><span class="chip">LLM classification</span><span class="chip">Human approval for anything non-routine</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© 2026 LDI Trucking Inc. · USDOT 1074419 · MC-446897</span>
+    <nav aria-label="Footer">
+      <a href="#services">Services</a><a href="#shippers">Shippers</a><a href="#drive">Careers</a><a href="#hub">Driver Hub</a><a href="#safety">Safety</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ================= APPENDIX: ROADMAP (internal, not part of the public site) ================= -->
+<section class="section appendix auto-appendix" id="roadmap">
+  <div class="wrap">
+    <span class="appendix-label">For LDI management · not part of the public site</span>
+    <div class="section-head">
+      <span class="eyebrow">Automation roadmap</span>
+      <h2>The website is the front door. Most of the value is behind it.</h2>
+      <p class="lede">These are the automations I'd prioritize, based on the AI &amp; Automation Specialist posting and where a ~140-truck carrier usually loses staff time. Each one gets checked with the people who do the work today before anything is built; the plan starts by shadowing each department.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Department</th><th>Automation</th><th>Replaces</th><th>Built with</th><th>Effort</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dept">Safety &amp; Compliance</span></td>
+            <td><b>Expiration tracker + reminders</b> <span class="prio">Start here</span><br>CDL, med card, MVR, Clearinghouse, registrations, inspections, IFTA/IRP, COIs</td>
+            <td>Spreadsheet checks, missed renewals, out-of-service risk</td>
+            <td>Excel/SharePoint list, Power Automate or n8n, OCR for dates</td>
+            <td class="effort">1–2 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="dept">Accounting / Billing</span></td>
+            <td><b>BOL/POD → invoice packet</b><br>AI reads driver photos, matches them to the load, flags missing signatures or exceptions, assembles the packet</td>
+            <td>Manually matching paperwork and re-keying it into billing</td>
+            <td>Python + vision model with a human review queue for low-confidence fields</td>
+            <td class="effort">3–4 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="dept">Recruiting</span></td>
+            <td><b>Applicant speed-to-lead + follow-ups</b><br>Instant reply, qualification check, call-now alerts, day 1/3/7 nudges</td>
+            <td>Manual callbacks; applicants going cold</td>
+            <td>Web form, n8n, SMS + email, recruiting tracker</td>
+            <td class="effort">1–2 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="dept">HR / Onboarding</span></td>
+            <td><b>Mobile document collection + DQ file checklist</b></td>
+            <td>Paper packets; chasing drivers for documents</td>
+            <td>Mobile forms, OCR, SharePoint folders per driver</td>
+            <td class="effort">2 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="dept">Dispatch</span></td>
+            <td><b>Quote intake + rate-con extraction</b><br>Rate confirmation PDFs parsed straight into the TMS; ETA updates to customers</td>
+            <td>Copy-paste from PDFs and emails</td>
+            <td>Email parsing, document AI, TMS API</td>
+            <td class="effort">2–4 weeks <span class="fine">(depends on TMS)</span></td>
+          </tr>
+          <tr>
+            <td><span class="dept">All departments</span></td>
+            <td><b>AI inbox triage</b> for shared mailboxes</td>
+            <td>Sorting and forwarding email by hand</td>
+            <td>Microsoft 365, Power Automate, LLM classification</td>
+            <td class="effort">2 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="dept">Management</span></td>
+            <td><b>Weekly dashboard</b><br>Loads, revenue per mile, driver pipeline, expirations, AR aging, CSA</td>
+            <td>Reports assembled by hand</td>
+            <td>Power BI or a lightweight web dashboard on SQL</td>
+            <td class="effort">2–3 weeks</td>
+          </tr>
+          <tr>
+            <td><span class="dept">Company-wide</span></td>
+            <td><b>Internal AI assistant</b> over LDI policies and procedures</td>
+            <td>"Who do I ask?" interruptions</td>
+            <td>Business-tier AI restricted to LDI documents</td>
+            <td class="effort">1–2 weeks</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine" style="margin-top:8px">Effort estimates assume access to the relevant systems and a point person per department; they get firmed up after discovery.</p>
+
+    <h3 class="sub-h">Back-of-envelope: paperwork time per load</h3>
+    <p class="lede" style="margin-bottom:16px">Placeholder numbers below. Plug in LDI's real figures and the estimate updates.</p>
+    <div class="calc">
+      <div class="calc-inputs">
+        <label>Loads per week<input id="c-loads" type="number" min="0" value="500"></label>
+        <label>Paperwork minutes per load<input id="c-min" type="number" min="0" step="0.5" value="6"></label>
+        <label>Share that can be automated (%)<input id="c-pct" type="number" min="0" max="100" value="60"></label>
+        <label>Loaded staff cost ($/hour)<input id="c-rate" type="number" min="0" value="28"></label>
+      </div>
+      <div class="calc-out" aria-live="polite">
+        <div><b id="o-hours">30</b><span>staff hours saved per week</span></div>
+        <div><b id="o-fte">0.75</b><span>full-time equivalents freed up</span></div>
+        <div><b id="o-dollars">$43,680</b><span>per year in staff time</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-h">90-day plan</h3>
+    <div class="phases">
+      <div class="phase">
+        <div class="when">Weeks 1–2</div>
+        <h3>Discover + quick win</h3>
+        <ul>
+          <li>On-site days shadowing Recruiting, Safety, Dispatch and Billing</li>
+          <li>Map current systems: TMS, ELD, Microsoft 365, accounting</li>
+          <li>Rank tasks by hours spent and error risk</li>
+          <li>Ship the expiration tracker</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="when">Weeks 3–6</div>
+        <h3>Documents + applicants</h3>
+        <ul>
+          <li>BOL/POD → invoice packet pipeline with human review</li>
+          <li>Applicant speed-to-lead and follow-up sequence</li>
+          <li>Mobile onboarding document collection</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="when">Weeks 7–12</div>
+        <h3>Connect + report</h3>
+        <ul>
+          <li>Integrations between TMS, accounting and Microsoft 365</li>
+          <li>Management dashboard</li>
+          <li>Inbox triage; internal assistant if the need is real</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="when">Ongoing</div>
+        <h3>Run it properly</h3>
+        <ul>
+          <li>Every automation documented: what it does, who owns it, how to switch it off</li>
+          <li>Run logs and failure alerts</li>
+          <li>Short training per department</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <h3>How remote work would run</h3>
+        <ul>
+          <li><b>30-minute weekly meeting</b> on Teams or Zoom: demo what shipped, agree on next week's priority</li>
+          <li><b>On-site when it matters:</b> discovery days at the start, and training when something goes live</li>
+          <li><b>Shared project board</b> so every department sees what's in progress</li>
+          <li><b>Async questions</b> by Teams or email between meetings</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Security guardrails</h3>
+        <ul>
+          <li>Driver and employee data stays in LDI-controlled accounts (Microsoft 365 / LDI cloud)</li>
+          <li>Least-privilege access, removable on day one</li>
+          <li>Business-tier AI APIs that don't train on LDI data; no driver data in consumer chat tools</li>
+          <li>Audit logs on every automated action; a person approves anything non-routine</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="prepared">Prepared by Anthony Mendez · <a href="https://www.anthonymendezswe.com">anthonymendezswe.com</a> · <a href="https://github.com/Antheagao">github.com/Antheagao</a></p>
+  </div>
+</section>
+
+<script>
+  // Toggle the automation annotation layer
+  (function () {
+    var btn = document.getElementById('toggleAuto');
+    btn.addEventListener('click', function () {
+      var hidden = document.body.classList.toggle('hide-auto');
+      btn.setAttribute('aria-pressed', String(!hidden));
+      btn.textContent = hidden ? 'Show automation notes' : 'Hide automation notes';
+    });
+  })();
+
+  // Demo forms: show what the live version would do instead of submitting
+  document.querySelectorAll('.demo-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = form.querySelector('.form-msg');
+      msg.textContent = form.getAttribute('data-msg');
+      msg.classList.add('show');
+    });
+  });
+
+  // Time-saved estimator
+  (function () {
+    var ids = ['c-loads', 'c-min', 'c-pct', 'c-rate'];
+    function num(id) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) && v > 0 ? v : 0; }
+    function update() {
+      var hours = num('c-loads') * num('c-min') * Math.min(num('c-pct'), 100) / 100 / 60;
+      document.getElementById('o-hours').textContent = hours.toFixed(hours < 10 ? 1 : 0);
+      document.getElementById('o-fte').textContent = (hours / 40).toFixed(2);
+      document.getElementById('o-dollars').textContent = '$' + Math.round(hours * num('c-rate') * 52).toLocaleString('en-US');
+    }
+    ids.forEach(function (id) { document.getElementById(id).addEventListener('input', update); });
+    update();
+  })();
+</script>
+</body>
+</html>
